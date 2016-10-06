@@ -1,0 +1,17 @@
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: mes-comptes-v3
+  resources.static-locations: classpath:/META-INF/resources/,classpath:/public/dist/,classpath:/public/src/,classpath:/resources/,classpath:/static/
+
+server:
+  port: 8080
+  compression.enabled: true
+  compression.min-response-size: 1
+  use-forward-headers: true
+  undertow:
+    io-threads: 10
+    worker-threads: 10
+    ioThreads: 10
+    workerThreads: 10
