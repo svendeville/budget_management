@@ -17,17 +17,19 @@
  */
 package com.snv.budget;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  *
  * @author Sylvain
  */
 @SpringBootApplication
+@EnableSwagger2
 public class BudgetManagementApplication {
 
     public static void main(final String[] args) throws Exception {
-        SpringApplication.run(BudgetManagementApplication.class, args);
+        new SpringApplicationBuilder(BudgetManagementApplication.class).web(true).run(args);
     }
 }
