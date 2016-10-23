@@ -25,7 +25,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  *
  * @author Sylvain
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.snv"})
 @EnableSwagger2
 public class BudgetManagementApplication {
 

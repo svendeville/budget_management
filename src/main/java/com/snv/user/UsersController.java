@@ -18,8 +18,12 @@ package com.snv.user;
 
 import com.snv.user.api.Users;
 import com.snv.user.model.User;
+import javax.validation.Valid;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -37,7 +41,9 @@ public class UsersController implements Users {
      * {@inheritDoc}
      */
     @Override
-    public User post(User user) {
+    @RequestMapping(method = RequestMethod.POST
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public User post(@Valid @RequestBody final User user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

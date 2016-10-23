@@ -4,6 +4,8 @@ spring:
   application:
     name: mes-comptes-v3
   resources.static-locations: classpath:/META-INF/resources/,classpath:/public/dist/,classpath:/public/src/,classpath:/resources/,classpath:/static/
+  jackson:
+      date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
 
 server:
   port: 8080
@@ -15,3 +17,17 @@ server:
     worker-threads: 10
     ioThreads: 10
     workerThreads: 10
+endpoints:
+  health:
+    sensitive: false
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+
+info:
+  app:
+    name: ${spring.application.name}
+    description : '@project.description@'
+    version: '@project.version@'
+    gitCommitId: '@git.commit.id@'
