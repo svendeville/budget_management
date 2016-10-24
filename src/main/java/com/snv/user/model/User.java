@@ -16,7 +16,11 @@
  */
 package com.snv.user.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Pojo to manage the users
@@ -24,9 +28,29 @@ import lombok.Data;
 @Data
 public class User {
     
+    @NotNull
+    @NotBlank
+    @Size(min = 3)
     private String firstName;
+    
+    @NotNull
+    @NotBlank
+    @Size(min = 3)
     private String lastName;
+    
+    @NotNull
+    @NotBlank
+    @Size(min = 3)
+    @Email
     private String email;
+    
+    @NotNull
+    @NotBlank
+    @Size(min = 3)
     private String login;
+    
+    @NotNull
+    @NotBlank
+    @Size(min = 3)
     private String password;
 }
