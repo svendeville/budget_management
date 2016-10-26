@@ -157,7 +157,7 @@
                         <id>exec-ng-build</id>
                         <phase>compile</phase>
                         <configuration>
-                            <executable>./node_modules/.bin/ng.cmd</executable>
+                            <executable>./node_modules/.bin/ng</executable>
                             <workingDirectory>${project.basedir}/src/main/resources/public/</workingDirectory>
                             <arguments>
                                 <argument>build</argument>
