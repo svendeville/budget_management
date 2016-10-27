@@ -17,7 +17,6 @@
 package com.snv.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snv.user.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

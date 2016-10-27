@@ -16,8 +16,6 @@
  */
 package com.snv.user;
 
-import com.snv.user.api.Users;
-import com.snv.user.model.User;
 import javax.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;

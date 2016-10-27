@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with MesComptes. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.snv.budget.exceptions;
+package com.snv.exceptions;
 
 public class KeyAlreadyExistException extends Exception {
 

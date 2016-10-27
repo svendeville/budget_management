@@ -15,54 +15,32 @@
  * You should have received a copy of the GNU General Public License
  * along with MesComptes. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.snv.budget.exceptions;
+package com.snv.exceptions;
 
 /**
  * @author Sylvain Vendeville
  *
  */
-public class ServiceException extends Exception {
+public class ParameterKeyNotInitializedException extends Exception {
 
     /**
      * serialVersionUID
      */
-    private static final long serialVersionUID = -182467549117744262L;
+    private static final long serialVersionUID = 3935075547089105740L;
 
-    /**
-     *
-     */
-    public ServiceException() {
+    public ParameterKeyNotInitializedException() {
+        super();
     }
 
-    /**
-     * @param arg0
-     */
-    public ServiceException(final String arg0) {
-        super(arg0);
+    public ParameterKeyNotInitializedException(final String message) {
+        super(message);
     }
 
-    /**
-     * @param arg0
-     * @param arg1
-     */
-    public ServiceException(final String arg0, final Throwable arg1) {
-        super(arg0, arg1);
+    public ParameterKeyNotInitializedException(final String message, final Throwable cause) {
+        super(message, cause);
     }
 
-    /**
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     */
-    public ServiceException(final String arg0, final Throwable arg1, final boolean arg2, final boolean arg3) {
-        super(arg0, arg1, arg2, arg3);
-    }
-
-    /**
-     * @param arg0
-     */
-    public ServiceException(final Throwable arg0) {
-        super(arg0);
+    public ParameterKeyNotInitializedException(final Throwable cause) {
+        super(cause);
     }
 }

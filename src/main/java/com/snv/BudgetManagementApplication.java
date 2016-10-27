@@ -15,32 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with MesComptes. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.snv.budget.exceptions;
+package com.snv;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * @author Sylvain Vendeville
  *
+ * @author Sylvain
  */
-public class ParameterKeyNotInitializedException extends Exception {
+@SpringBootApplication(scanBasePackages = {"com.snv"})
+@EnableSwagger2
+public class BudgetManagementApplication {
 
-    /**
-     * serialVersionUID
-     */
-    private static final long serialVersionUID = 3935075547089105740L;
-
-    public ParameterKeyNotInitializedException() {
-        super();
-    }
-
-    public ParameterKeyNotInitializedException(final String message) {
-        super(message);
-    }
-
-    public ParameterKeyNotInitializedException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
-
-    public ParameterKeyNotInitializedException(final Throwable cause) {
-        super(cause);
+    public static void main(final String[] args) throws Exception {
+        new SpringApplicationBuilder(BudgetManagementApplication.class).web(true).run(args);
     }
 }

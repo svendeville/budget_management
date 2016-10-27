@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with MesComptes. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.snv.user.model;
+package com.snv.user;
 
+import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Data;
@@ -26,7 +27,12 @@ import org.hibernate.validator.constraints.NotBlank;
  * Pojo to manage the users
  */
 @Data
-public class User {
+public class User implements Serializable {
+    
+    /**
+     * Serial Version for Serialization
+     */
+    private static final long serialVersionUID = -1959859065593124107L;
     
     @NotNull
     @NotBlank

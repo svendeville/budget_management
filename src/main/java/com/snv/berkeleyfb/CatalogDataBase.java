@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with MesComptes. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.snv.budget.berkeleydb;
+package com.snv.berkeleyfb;
 
 import java.io.File;
 
@@ -36,7 +36,7 @@ import com.sleepycat.je.LockMode;
 import com.sleepycat.je.OperationStatus;
 import com.sleepycat.je.Transaction;
 import com.sleepycat.je.Transaction.State;
-import com.snv.budget.exceptions.BudgetDataBaseException;
+import com.snv.exceptions.BudgetDataBaseException;
 
 public final class CatalogDataBase {
 
