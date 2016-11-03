@@ -1,6 +1,6 @@
 /*
  * @2016 Sylvain Vendeville.
- * This file is part of MesComptes.
+ * This file is part of Budget Managment.
  *
  * Budget Management is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
