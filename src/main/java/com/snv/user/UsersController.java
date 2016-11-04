@@ -16,6 +16,7 @@
  */
 package com.snv.user;
 
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -38,6 +39,7 @@ public class UsersController implements Users {
 
     @Autowired
     private UserService userService;
+    
     /**
      * {@inheritDoc}
      */
@@ -46,6 +48,47 @@ public class UsersController implements Users {
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public User post(@Valid @RequestBody final User user) {
         return this.userService.create(user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = "/{userId}",
+            method = RequestMethod.GET
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public User get(Long userId) {
+        return this.userService.get(userId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(method = RequestMethod.GET
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<User> getAll() {
+        return this.userService.getAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(method = RequestMethod.PUT
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public User put(User user) {
+        return this.userService.put(user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(method = RequestMethod.DELETE
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Boolean delete(User user) {
+        return this.userService.delete(user);
     }
     
 }

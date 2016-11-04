@@ -16,6 +16,8 @@
  */
 package com.snv.user;
 
+import java.util.List;
+
 /**
  * interface to manage users
  */
@@ -28,4 +30,31 @@ interface UserService {
      * @return the user created with the new technical identifier
      */
     User create(final User user);
+    
+    /**
+     * Get a user by identifier
+     * @param userId, the identifier to get the user
+     * @return the user found by the identifier, null otherwise
+     */
+    User get(final Long userId);
+    
+    /**
+     * Get all users
+     * @return the list of user containing all dataBase users
+     */
+    List<User> getAll();
+    
+    /**
+     * Udapte user PUT endpoint
+     * @param user the user to update
+     * @return the same user.
+     */
+    User put(final User user);
+    
+    /**
+     * Delete user
+     * @param user the user to delete
+     * @return boolean true if user is successfuly deleted, false otherwise
+     */
+    Boolean delete(final User user);
 }

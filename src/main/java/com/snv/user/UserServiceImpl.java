@@ -17,6 +17,7 @@
 package com.snv.user;
 
 import com.snv.common.CrudService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,9 +27,44 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private CrudService<User> userCrudService;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User create(User user) {
         return this.userCrudService.create(user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User get(Long userId) {
+        return this.userCrudService.get(userId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<User> getAll() {
+        return this.userCrudService.getAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User put(User user) {
+        return this.userCrudService.update(user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean delete(User user) {
+        return this.userCrudService.delete(user);
     }
     
 }

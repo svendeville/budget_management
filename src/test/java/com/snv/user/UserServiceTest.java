@@ -16,11 +16,15 @@
  */
 package com.snv.user;
 
+import com.snv.common.CrudService;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Matchers;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
@@ -31,6 +35,9 @@ public class UserServiceTest {
     
     @InjectMocks
     private UserService userService = new UserServiceImpl();
+    
+    @Mock
+    private CrudService<User> userCrudService;
     
     private User user;
     
@@ -46,6 +53,7 @@ public class UserServiceTest {
     
     @Test
     public void should_return_user_with_information() {
+        Mockito.when(this.userCrudService.create(Matchers.any(User.class))).thenReturn(this.user);
         User user = this.userService.create(this.user);
         assertNotNull("user created can not be null !", user);
         assertEquals("users not same !", user, this.user);
