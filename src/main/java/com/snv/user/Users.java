@@ -76,7 +76,7 @@ public interface Users {
     @RequestMapping(value = "/{userId}",
             method = RequestMethod.GET
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    User get(@ApiParam(value = "userId", required = true) @PathVariable("userId") final Long userId);
+    User get(@ApiParam(value = "User technical identifier", required = true) @PathVariable("userId") final Long userId);
     
     /**
      * Get all users

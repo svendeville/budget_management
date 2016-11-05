@@ -17,6 +17,8 @@
 package com.snv.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
+import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +26,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
@@ -62,9 +65,8 @@ public class UserControllerTest {
     
     @Test
     public void should_return_BadRequest_when_call_without_user() throws Exception {
-        User user = new User();
         mockMvc.perform(MockMvcRequestBuilders.post(CONTROLLER_URL)
-        .content(this.mapper.writeValueAsString(user))
+        .content(this.mapper.writeValueAsString(new User()))
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError());
@@ -72,23 +74,23 @@ public class UserControllerTest {
     
     @Test
     public void should_return_BadRequest_when_call_with_empty_user_values() throws Exception {
-        User user = new User();
+        User emptyUser = new User();
         
-        user.setFirstName("");
-        user.setLastName("");
-        user.setEmail("");
-        user.setLogin("");
-        user.setPassword("");
+        emptyUser.setFirstName("");
+        emptyUser.setLastName("");
+        emptyUser.setEmail("");
+        emptyUser.setLogin("");
+        emptyUser.setPassword("");
         
         mockMvc.perform(MockMvcRequestBuilders.post(CONTROLLER_URL)
-        .content(this.mapper.writeValueAsString(user))
+        .content(this.mapper.writeValueAsString(emptyUser))
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError());
     }
     
     @Test
-    public void should_return_user_with_information() throws Exception {
+    public void should_return_user_with_information_on_create() throws Exception {
         when(this.userService.create(Matchers.any(User.class))).thenReturn(this.user);
         
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(CONTROLLER_URL)
@@ -97,6 +99,8 @@ public class UserControllerTest {
         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
                 .andReturn();
+        
+        verify(this.userService, times(1)).create(Matchers.any(User.class));
         
         assertFalse(result.getResponse().getContentAsString().isEmpty());
         User actual = objectMapper.readValue(result.getResponse().getContentAsString(), User.class);
@@ -107,5 +111,91 @@ public class UserControllerTest {
         assertEquals("user's email name is not same", actual.getEmail(), this.user.getEmail());
         assertEquals("user's login name is not same", actual.getLogin(), this.user.getLogin());
         assertEquals("user's password name is not same", actual.getPassword(), this.user.getPassword());
+    }
+    
+    @Test
+    public void should_return_user_with_information_on_update() throws Exception {
+        when(this.userService.put(Matchers.any(User.class))).thenReturn(this.user);
+        
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put(CONTROLLER_URL)
+        .content(this.mapper.writeValueAsString(user))
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+                .andReturn();
+        
+        verify(this.userService, times(1)).put(Matchers.any(User.class));
+        
+        assertFalse(result.getResponse().getContentAsString().isEmpty());
+        User actual = objectMapper.readValue(result.getResponse().getContentAsString(), User.class);
+        assertNotNull("user created can not be null !", actual);
+        assertEquals("users not same !", actual, this.user);
+        assertEquals("user's first name is not same", actual.getFirstName(), this.user.getFirstName());
+        assertEquals("user's last name is not same", actual.getLastName(), this.user.getLastName());
+        assertEquals("user's email name is not same", actual.getEmail(), this.user.getEmail());
+        assertEquals("user's login name is not same", actual.getLogin(), this.user.getLogin());
+        assertEquals("user's password name is not same", actual.getPassword(), this.user.getPassword());
+    }
+    
+    @Test
+    public void should_return_list_of_user_on_getall() throws Exception {
+        List<User> users = Arrays.asList(this.user);
+        when(this.userService.getAll()).thenReturn(users);
+        
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(CONTROLLER_URL)
+        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+                .andReturn();
+        
+        verify(this.userService, times(1)).getAll();
+        
+        
+        assertFalse(result.getResponse().getContentAsString().isEmpty());
+        List<User> actual = objectMapper.readValue(result.getResponse().getContentAsString(), List.class);
+        
+        assertNotNull("List of users can not be null !", actual);
+        assertFalse("List of users can not be empty", actual.isEmpty());
+    }
+    
+    @Test
+    public void should_return_user_on_get() throws Exception {
+        when(this.userService.get(Matchers.anyLong())).thenReturn(this.user);
+        
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(CONTROLLER_URL + "/1")
+        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+                .andReturn();
+        
+        verify(this.userService, times(1)).get(Matchers.anyLong());
+        
+        
+        assertFalse(result.getResponse().getContentAsString().isEmpty());
+        User actual = objectMapper.readValue(result.getResponse().getContentAsString(), User.class);
+        assertNotNull("user created can not be null !", actual);
+        assertEquals("users not same !", actual, this.user);
+        assertEquals("user's first name is not same", actual.getFirstName(), this.user.getFirstName());
+        assertEquals("user's last name is not same", actual.getLastName(), this.user.getLastName());
+        assertEquals("user's email name is not same", actual.getEmail(), this.user.getEmail());
+        assertEquals("user's login name is not same", actual.getLogin(), this.user.getLogin());
+        assertEquals("user's password name is not same", actual.getPassword(), this.user.getPassword());
+    }
+    
+    @Test
+    public void should_return_boolean_true_on_delete_success() throws Exception {
+        when(this.userService.delete(Matchers.any(User.class))).thenReturn(Boolean.TRUE);
+        
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete(CONTROLLER_URL)
+        .content(this.mapper.writeValueAsString(user))
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+                .andReturn();
+        
+        verify(this.userService, times(1)).delete(Matchers.any(User.class));
+        
+        
+        Boolean actual = objectMapper.readValue(result.getResponse().getContentAsString(), Boolean.class);
+        assertNotNull("result on delete can not be null !", actual);
+        assertTrue("result on delete is not true !", actual);
     }
 }

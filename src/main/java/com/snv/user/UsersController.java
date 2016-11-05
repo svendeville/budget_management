@@ -21,6 +21,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,7 +58,7 @@ public class UsersController implements Users {
     @RequestMapping(value = "/{userId}",
             method = RequestMethod.GET
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public User get(Long userId) {
+    public User get(@PathVariable("userId") Long userId) {
         return this.userService.get(userId);
     }
 
@@ -77,7 +78,7 @@ public class UsersController implements Users {
     @Override
     @RequestMapping(method = RequestMethod.PUT
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public User put(User user) {
+    public User put(@RequestBody User user) {
         return this.userService.put(user);
     }
 
@@ -87,7 +88,7 @@ public class UsersController implements Users {
     @Override
     @RequestMapping(method = RequestMethod.DELETE
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Boolean delete(User user) {
+    public Boolean delete(@RequestBody User user) {
         return this.userService.delete(user);
     }
     
