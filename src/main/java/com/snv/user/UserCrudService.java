@@ -16,14 +16,10 @@
  */
 package com.snv.user;
 
-import com.sleepycat.je.DatabaseException;
 import com.snv.berkeleyfb.CatalogDataBase;
 import com.snv.berkeleyfb.DataBaseFactory;
 import com.snv.berkeleyfb.DataBaseNamesEnum;
 import com.snv.common.CrudService;
-import com.snv.exceptions.BudgetDataBaseException;
-import com.snv.exceptions.KeyAlreadyExistException;
-import com.snv.exceptions.NoDataFoundException;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
