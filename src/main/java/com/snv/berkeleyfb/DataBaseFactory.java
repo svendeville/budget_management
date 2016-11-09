@@ -106,8 +106,7 @@ public abstract class DataBaseFactory<T> {
             LOG.info(msg);
             throw new NoDataFoundException(msg);
         }
-        final T result = this.entryBinding.entryToObject(data);
-        return result;
+        return this.entryBinding.entryToObject(data);
     }
 
     protected List<T> getAll() {
