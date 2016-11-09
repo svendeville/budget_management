@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Rest Crud Iterface that manages Users request. Its main function is to catch request, convert data
@@ -35,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Finally, send the response back to the consumer
  * If exceptions occurs, treatment of the corresponding responses are made
  */
-@Api(tags={"users"}, value="users", description = "Crud Api to manage the User", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(tags={"users"}, value="users Crud Api to manage the User", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @RequestMapping(value="/users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public interface Users {
     

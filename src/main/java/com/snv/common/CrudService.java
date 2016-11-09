@@ -33,20 +33,20 @@ public interface CrudService<T> {
      * @return the new created entity or null if an error occured
      * @throws com.snv.exceptions.KeyAlreadyExistException
      */
-    T create(final T entity) throws BudgetDataBaseException, KeyAlreadyExistException;
+    T create(final T entity);
     
     /**
      * get the entity of T object by primaray key
      * @param entityKey the primary key of the T object search
      * @return T object found or null if no entity found
      */
-    T get(final long entityKey) throws NoDataFoundException;
+    T get(final long entityKey);
     
     /**
      * get all entity of T object
      * @return an list of T object
      */
-    List<T> getAll() throws DatabaseException, IllegalArgumentException;
+    List<T> getAll();
     
     /**
      * update an entity parameter passed
@@ -69,10 +69,10 @@ public interface CrudService<T> {
      */
     boolean delete(final T entity);
 
-    void close() throws BudgetDataBaseException;
+    void close();
 
     boolean isOpen();
 
-    void open() throws BudgetDataBaseException;
+    void open();
 
 }

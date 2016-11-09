@@ -51,7 +51,7 @@ public abstract class DataBaseFactory<T> {
     private final Environment        env      = CatalogDataBase.getInstance().getEnv();
     private EntryBinding<Long>       keyBinding;
 
-    private boolean saveEntity(final Long primaryKey, final T entity, final boolean isInsert) throws KeyAlreadyExistException {
+    private boolean saveEntity(final Long primaryKey, final T entity, final boolean isInsert) {
         OperationStatus status;
         final Transaction txn = this.env.beginTransaction(null, null);
         final DatabaseEntry key = new DatabaseEntry();
@@ -78,7 +78,7 @@ public abstract class DataBaseFactory<T> {
         return OperationStatus.SUCCESS == status;
     }
 
-    protected void close() throws BudgetDataBaseException {
+    protected void close() {
         try {
             this.db.close();
         } catch (final DatabaseException e) {
@@ -88,7 +88,7 @@ public abstract class DataBaseFactory<T> {
         }
     }
 
-    protected boolean deleteEntity(final Long primaryKey) throws BudgetDataBaseException, KeyAlreadyExistException {
+    protected boolean deleteEntity(final Long primaryKey) {
         final DatabaseEntry key = new DatabaseEntry();
         this.keyBinding.objectToEntry(primaryKey, key);
         final OperationStatus status = this.db.delete(null, key);
@@ -110,7 +110,7 @@ public abstract class DataBaseFactory<T> {
         return result;
     }
 
-    protected List<T> getAll() throws DatabaseException, IllegalArgumentException {
+    protected List<T> getAll() {
         final DatabaseEntry priKey = new DatabaseEntry();
         final DatabaseEntry priData = new DatabaseEntry();
         final List<T> result = new ArrayList<>();
@@ -123,7 +123,7 @@ public abstract class DataBaseFactory<T> {
         return result;
     }
 
-    protected boolean insertEntity(final Long primaryKey, final T entity) throws BudgetDataBaseException, KeyAlreadyExistException {
+    protected boolean insertEntity(final Long primaryKey, final T entity) {
         return this.saveEntity(primaryKey, entity, true);
     }
 
@@ -131,7 +131,7 @@ public abstract class DataBaseFactory<T> {
         return this.db != null;
     }
 
-    protected void open(final DataBaseNamesEnum dbName) throws BudgetDataBaseException {
+    protected void open(final DataBaseNamesEnum dbName) {
         final Transaction txn = this.env.beginTransaction(null, null);
         try {
             this.entryBinding = new SerialBinding<>(this.catalog, null);
@@ -149,7 +149,7 @@ public abstract class DataBaseFactory<T> {
         }
     }
 
-    protected boolean updateEntity(final Long primaryKey, final T entity) throws BudgetDataBaseException, KeyAlreadyExistException {
+    protected boolean updateEntity(final Long primaryKey, final T entity) {
         return this.saveEntity(primaryKey, entity, false);
     }
 }

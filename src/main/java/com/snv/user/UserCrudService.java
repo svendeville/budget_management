@@ -57,7 +57,7 @@ public final class UserCrudService extends DataBaseFactory<User> implements Crud
      * {@inheritDoc}
      */
     @Override
-    public void open() throws BudgetDataBaseException {
+    public void open() {
         super.open(USERCRUDSERVICENAME);
     }
 
@@ -65,7 +65,7 @@ public final class UserCrudService extends DataBaseFactory<User> implements Crud
      * {@inheritDoc}
      */
     @Override
-    public void close() throws BudgetDataBaseException {
+    public void close() {
         super.close();
     }
 
@@ -73,7 +73,7 @@ public final class UserCrudService extends DataBaseFactory<User> implements Crud
      * {@inheritDoc}
      */
     @Override
-    public User create(User entity) throws BudgetDataBaseException, KeyAlreadyExistException {
+    public User create(User entity) {
         final Long primaryKey = CatalogDataBase.getInstance().getNextSequence(USERCRUDSERVICENAME.getValue());
         entity.setId(primaryKey);
         if (super.insertEntity(primaryKey, entity)) {
@@ -86,7 +86,7 @@ public final class UserCrudService extends DataBaseFactory<User> implements Crud
      * {@inheritDoc}
      */
     @Override
-    public User get(long entityKey) throws NoDataFoundException {
+    public User get(long entityKey) {
         return super.get(entityKey);
     }
     
@@ -94,7 +94,7 @@ public final class UserCrudService extends DataBaseFactory<User> implements Crud
      * {@inheritDoc}
      */
     @Override
-    public List<User> getAll() throws DatabaseException, IllegalArgumentException {
+    public List<User> getAll() {
         return super.getAll();
     }
 

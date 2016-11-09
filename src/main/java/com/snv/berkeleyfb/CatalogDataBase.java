@@ -81,12 +81,8 @@ public final class CatalogDataBase {
             txn.abort();
             LOG.error("Erreur lors de l'ouverture de la Base de données : catalog", e);
             throw new BudgetDataBaseException(e);
-        } catch (final RuntimeException e) {
-            txn.abort();
-            LOG.error("Erreur lors de l'ouverture de la Base de données : catalog", e);
-            throw new BudgetDataBaseException(e);
         } finally {
-            if (txn.getState() != State.ABORTED) {
+            if (!State.ABORTED.equals(txn.getState())) {
                 txn.commit();
             }
         }
@@ -129,7 +125,6 @@ public final class CatalogDataBase {
             result = this.entryBinding.entryToObject(sequence) + 1L;
         }
         if (Boolean.FALSE.equals(this.updateSequence(dbName, result))) {
-            LOG.error("Erreur lors de l'insertion en Base de données : sequenceDb");
             throw new BudgetDataBaseException("Erreur lors de l'insertion en Base de données : sequenceDb");
         }
         return result;
@@ -154,8 +149,7 @@ public final class CatalogDataBase {
             status = this.sequenceDb.put(txn, key, data);
         } catch (final DatabaseException e) {
             txn.abort();
-            LOG.error("Erreur lors de l'insertion en Base de données : sequenceDb", e);
-            throw new BudgetDataBaseException("Erreur lors de l'insertion en Base de données : sequenceDb", e);
+            throw new BudgetDataBaseException(e);
         } finally {
             if (txn.getState() != State.ABORTED) {
                 txn.commit();
