@@ -16,10 +16,6 @@
  */
 package com.snv.common;
 
-import com.sleepycat.je.DatabaseException;
-import com.snv.exceptions.BudgetDataBaseException;
-import com.snv.exceptions.KeyAlreadyExistException;
-import com.snv.exceptions.NoDataFoundException;
 import java.util.List;
 
 /**
@@ -31,7 +27,6 @@ public interface CrudService<T> {
      * insert en entity of T object to data base
      * @param entity the entity to insert
      * @return the new created entity or null if an error occured
-     * @throws com.snv.exceptions.KeyAlreadyExistException
      */
     T create(final T entity);
     
