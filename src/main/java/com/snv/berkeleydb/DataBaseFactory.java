@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with MesComptes. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.snv.berkeleyfb;
+package com.snv.berkeleydb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +81,7 @@ public abstract class DataBaseFactory<T> {
     protected void close() {
         try {
             this.db.close();
+            this.db = null;
         } catch (final DatabaseException e) {
             final String msg = String.format("Erreur lors de la fermeture de la Base de données : %s", this.db.getDatabaseName());
             LOG.error(msg, e);

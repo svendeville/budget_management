@@ -26,6 +26,7 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import static org.mockito.Mockito.verify;
 
 /**
  * Class To test the User service
@@ -34,7 +35,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class UserServiceTest {
     
     @InjectMocks
-    private UserService userService = new UserServiceImpl();
+    private final UserService userService = new UserServiceImpl();
     
     @Mock
     private CrudService<User> userCrudService;
@@ -54,13 +55,14 @@ public class UserServiceTest {
     @Test
     public void should_return_user_with_information() {
         Mockito.when(this.userCrudService.create(Matchers.any(User.class))).thenReturn(this.user);
-        User user = this.userService.create(this.user);
-        assertNotNull("user created can not be null !", user);
-        assertEquals("users not same !", user, this.user);
-        assertEquals("user's first name is not same", user.getFirstName(), this.user.getFirstName());
-        assertEquals("user's last name is not same", user.getLastName(), this.user.getLastName());
-        assertEquals("user's email name is not same", user.getEmail(), this.user.getEmail());
-        assertEquals("user's login name is not same", user.getLogin(), this.user.getLogin());
-        assertEquals("user's password name is not same", user.getPassword(), this.user.getPassword());
+        User actual = this.userService.create(this.user);
+        verify(this.userCrudService, Mockito.times(1)).create(Matchers.any(User.class));
+        assertNotNull("user created can not be null !", actual);
+        assertEquals("users not same !", actual, this.user);
+        assertEquals("user's first name is not same", actual.getFirstName(), this.user.getFirstName());
+        assertEquals("user's last name is not same", actual.getLastName(), this.user.getLastName());
+        assertEquals("user's email name is not same", actual.getEmail(), this.user.getEmail());
+        assertEquals("user's login name is not same", actual.getLogin(), this.user.getLogin());
+        assertEquals("user's password name is not same", actual.getPassword(), this.user.getPassword());
     }
 }

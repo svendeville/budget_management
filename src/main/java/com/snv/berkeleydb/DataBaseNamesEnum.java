@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with MesComptes. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.snv.berkeleyfb;
+package com.snv.berkeleydb;
 
 public enum DataBaseNamesEnum {
     BUDGETS("BUDGETS"), CATEGORIES("CATEGORIES"), COMPTES("COMPTES"), ECHEANCIERS("ECHEANCIERS"), MODEDEPAIEMENT("MODEDEPAIEMENT"), MOUVEMENTS(

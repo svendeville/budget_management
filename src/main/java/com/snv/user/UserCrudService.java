@@ -16,9 +16,9 @@
  */
 package com.snv.user;
 
-import com.snv.berkeleyfb.CatalogDataBase;
-import com.snv.berkeleyfb.DataBaseFactory;
-import com.snv.berkeleyfb.DataBaseNamesEnum;
+import com.snv.berkeleydb.CatalogDataBase;
+import com.snv.berkeleydb.DataBaseFactory;
+import com.snv.berkeleydb.DataBaseNamesEnum;
 import com.snv.common.CrudService;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -118,7 +118,7 @@ public final class UserCrudService extends DataBaseFactory<User> implements Crud
      */
     @Override
     public boolean delete(User entity) {
-        return super.deleteEntity(entity.getId());
+        return this.delete(entity.getId());
     }
     
 }
