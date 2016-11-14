@@ -112,6 +112,22 @@ public class UserCrudServiceTest {
       expected.setEmail("UpdatedEmail@Test");
       this.openService();
       
+      User actual = service.update(expected);
+      this.closeService();
+      
+      Assert.assertNotNull(actual);
+      Assert.assertNotNull(actual.getId());
+      Assert.assertEquals(expected.getEmail(), actual.getEmail());
+      Assert.assertEquals(expected.getFirstName(), actual.getFirstName());
+      Assert.assertEquals(expected.getLastName(), actual.getLastName());
+      Assert.assertEquals(expected.getLogin(), actual.getLogin());
+      Assert.assertEquals(expected.getPassword(), actual.getPassword());
+   }
+   
+   @Test
+   public void F_should_return_true_when_delete_known_user() {
+      this.openService();
+      
       boolean isDeleted = service.delete(expected);
       this.closeService();
       
