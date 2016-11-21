@@ -154,14 +154,14 @@
                </execution>
                <!-- build dist folder with ng -->	
                <execution>
-                  <id>exec-ng-build</id>
+                  <id>exec-npm-build</id>
                   <phase>compile</phase>
                   <configuration>
-                     <executable>./node_modules/.bin/ng</executable>
+                     <executable>npm</executable>
                      <workingDirectory>${project.basedir}/src/main/resources/public/</workingDirectory>
                      <arguments>
-                        <argument>build</argument>
-                        <argument>--prod</argument>
+                        <argument>run</argument>
+                        <argument>build:prod</argument>
                      </arguments>
                   </configuration>
                   <goals>
