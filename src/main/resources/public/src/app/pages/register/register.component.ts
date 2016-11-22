@@ -1,6 +1,8 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
+import {RegisterService} from './register.service';
+import { User } from "./../model/user";
 
 @Component({
   selector: 'register',
@@ -20,7 +22,7 @@ export class Register {
 
   public submitted:boolean = false;
 
-  constructor(fb:FormBuilder) {
+  constructor(fb: FormBuilder, private registerService: RegisterService) {
 
     this.form = fb.group({
       'lastName': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -43,8 +45,18 @@ export class Register {
   public onSubmit(values:Object):void {
     this.submitted = true;
     if (this.form.valid) {
-      // TODO: créer un nouvel utilisateur
-      // Créer le service d'enregistrement
+       let user:User = new User();
+       this.populateUser(user);
+       this.registerService.post(user)
+          .subscribe(registerUser => user.id = registerUser.id);
+       // TODO : Enregistrer le user en session
     }
+  }
+  
+  private populateUser(user:User) : void {
+     user.lastName = this.lastName.value;
+     user.firstName = this.firstName.value;
+     user.email = this.email.value;
+     user.password = this.password.value;
   }
 }

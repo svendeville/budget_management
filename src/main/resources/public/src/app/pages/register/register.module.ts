@@ -5,6 +5,7 @@ import { NgaModule } from '../../theme/nga.module';
 
 import { Register } from './register.component';
 import { routing }       from './register.routing';
+import { RegisterService } from './register.service';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { routing }       from './register.routing';
     ReactiveFormsModule,
     FormsModule,
     NgaModule,
-    routing
+    routing,
+    RegisterService
   ],
   declarations: [
     Register
