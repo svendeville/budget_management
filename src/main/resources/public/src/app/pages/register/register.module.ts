@@ -14,11 +14,13 @@ import { RegisterService } from './register.service';
     ReactiveFormsModule,
     FormsModule,
     NgaModule,
-    routing,
-    RegisterService
+    routing
   ],
   declarations: [
     Register
+  ],
+  providers: [
+    RegisterService      
   ]
 })
 export default class RegisterModule {}
