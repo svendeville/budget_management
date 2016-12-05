@@ -10,17 +10,17 @@ import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/form
 export class Login {
 
   public form:FormGroup;
-  public email:AbstractControl;
+  public login:AbstractControl;
   public password:AbstractControl;
   public submitted:boolean = false;
 
   constructor(fb:FormBuilder) {
     this.form = fb.group({
-      'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'login': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
     });
 
-    this.email = this.form.controls['email'];
+    this.login = this.form.controls['login'];
     this.password = this.form.controls['password'];
   }
 

@@ -3,13 +3,19 @@
 // rc2 workaround
 import { enableDebugTools, disableDebugTools } from '@angular/platform-browser';
 import { enableProdMode, ApplicationRef } from '@angular/core';
+import { RequestOptionsArgs, Headers } from "@angular/http";
 // Environment Providers
 let PROVIDERS: any[] = [
   // common env directives
 ];
 
+let reqOptions:RequestOptionsArgs={};
+reqOptions.headers = new Headers();
+reqOptions.headers.set("Content-Type", "application/json;charset=UTF-8");
+
 let PROPERTIES: any = {
-    HOST_SERVICES : "http://localhost:8080"
+    HOST_SERVICES : "http://localhost:8080",
+    HOST_OPTIONS: reqOptions
 };
 
 // Angular debug tools in the dev console
