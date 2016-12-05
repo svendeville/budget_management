@@ -16,6 +16,7 @@
  */
 package com.snv.user;
 
+import com.snv.guard.Role;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -61,4 +62,6 @@ public class User implements Serializable {
     @NotBlank
     @Size(min = 3)
     private String password;
+    
+    private Role role;
 }

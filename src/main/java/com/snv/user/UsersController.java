@@ -16,6 +16,9 @@
  */
 package com.snv.user;
 
+import com.snv.guard.AuthGuardFilter;
+import com.snv.guard.Role;
+import com.snv.guard.Secured;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +58,7 @@ public class UsersController implements Users {
      * {@inheritDoc}
      */
     @Override
+    @Secured(Role.ADMIN)
     @RequestMapping(value = "/{userId}",
             method = RequestMethod.GET
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -66,6 +70,7 @@ public class UsersController implements Users {
      * {@inheritDoc}
      */
     @Override
+    @Secured(Role.ADMIN)
     @RequestMapping(method = RequestMethod.GET
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<User> getAll() {
@@ -76,6 +81,7 @@ public class UsersController implements Users {
      * {@inheritDoc}
      */
     @Override
+    @Secured({Role.ADMIN, Role.USER})
     @RequestMapping(method = RequestMethod.PUT
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public User put(@RequestBody User user) {
@@ -86,10 +92,32 @@ public class UsersController implements Users {
      * {@inheritDoc}
      */
     @Override
+    @Secured(Role.ADMIN)
     @RequestMapping(method = RequestMethod.DELETE
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Boolean delete(@RequestBody User user) {
         return this.userService.delete(user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(method = RequestMethod.POST, path = "/login"
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public LoginResponce login(@RequestBody Credential credential) {
+        User user = this.userService.byLogin(credential);
+        LoginResponce loginResponce = new LoginResponce();
+        loginResponce.setUser(user);
+        loginResponce.setToken(this.userService.generateToken());
+        AuthGuardFilter.addToken(loginResponce.getToken(), user);
+        return loginResponce;
+    }
+
+    @Override
+    public Boolean logout(String token) {
+        AuthGuardFilter.removeToken(token);
+        return Boolean.TRUE;
     }
     
 }

@@ -17,6 +17,7 @@
 package com.snv.user;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * interface to manage users
@@ -57,4 +58,18 @@ interface UserService {
      * @return boolean true if user is successfuly deleted, false otherwise
      */
     Boolean delete(final User user);
+    
+    /**
+     * Find user By login
+     * @param Credential to find user
+     * @return The user found by credentiel, InvalidCredentialException otherwise
+     */
+    User byLogin(final Credential credential);
+    
+    /**
+     * Generate new token for current session
+     * @param user the user to session
+     * @return new string token
+     */
+    UUID generateToken();
 }

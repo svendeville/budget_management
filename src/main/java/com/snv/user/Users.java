@@ -133,4 +133,41 @@ public interface Users {
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     Boolean delete(@ApiParam(required = true) @RequestBody final User user);
     
+    /**
+     * login user POST endpoint
+     * @param credential the user credential identication
+     * @return LoginResponce with user and valid token
+     */
+    @ApiOperation(value="User login endPoint", 
+            notes = "Control login and password login")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 401, message = "Unauthorized"),
+        @ApiResponse(code = 403, message = "Forbidden"),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 500, message = "Internal Server Error")
+    })
+    @RequestMapping(method = RequestMethod.POST, path = "/login"
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    LoginResponce login(@ApiParam(required = true) @RequestBody final Credential credential);
+    
+    /**
+     * logout user GET endpoint
+     * @param token the token given on login
+     * @return boolean true if logged out false otherwise
+     */
+    @ApiOperation(value="User logout endPoint", 
+            notes = "Control logout user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 401, message = "Unauthorized"),
+        @ApiResponse(code = 403, message = "Forbidden"),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 500, message = "Internal Server Error")
+    })
+    @RequestMapping(method = RequestMethod.POST, path = "/logout/{token}"
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    Boolean logout(@ApiParam(value = "Token recevied on user login", required = true) @PathVariable("token") final String token);
 }
