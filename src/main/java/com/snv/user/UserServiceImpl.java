@@ -18,9 +18,12 @@ package com.snv.user;
 
 import com.snv.common.CrudService;
 import com.snv.exceptions.InvalidCredentialException;
+import com.snv.guard.Profile;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -74,15 +77,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User byLogin(Credential credential) {
-       List<User> users = this.getAll();
-       User user = users
-               .stream()
-               .filter(u -> 
-                       u.getLogin().equals(credential.getLogin()) && 
-                       u.getPassword().equals(credential.getPassword()))
-               .findFirst()
-               .orElse(null);
-       if (user != null) {
+       User user = this.byLogin(credential.getLogin());
+       if (user != null && credential.getPassword().equals(user.getPassword())) {
            return user;
        }
        throw new InvalidCredentialException("Invalid credential, please login with right login and password !");
@@ -92,8 +88,38 @@ public class UserServiceImpl implements UserService {
      * {@inheritDoc}
      */
     @Override
+    public User byLogin(String login) {
+       List<User> users = this.getAll();
+       User user = users
+               .stream()
+               .filter(u -> 
+                       u.getLogin().equals(login))
+               .findFirst()
+               .orElse(null);
+       if (user != null) {
+           this.populateAuthorities(user);
+           return user;
+       }
+       throw new InvalidCredentialException("User can not be found from login passed !");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public UUID generateToken() {
         return UUID.randomUUID();
+    }
+    
+    private void populateAuthorities(final User user) {
+        switch (user.getProfile().name()) {
+            case "ADMIN" :
+                Arrays.asList(Profile.values()).stream().forEach(profile -> user.getAuthorities().add((GrantedAuthority) () -> profile.name()));
+                break;
+            default:
+                user.getAuthorities().add((GrantedAuthority) () -> user.getProfile().name());
+                break;
+        }
     }
     
 }

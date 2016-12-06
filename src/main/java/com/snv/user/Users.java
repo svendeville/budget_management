@@ -22,6 +22,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * If exceptions occurs, treatment of the corresponding responses are made
  */
 @Api(tags={"users"}, value="users Crud Api to manage the User", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@RequestMapping(value="/users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value="/api/users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public interface Users {
     
     /**
@@ -53,7 +54,7 @@ public interface Users {
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")
     })
-    @RequestMapping(method = RequestMethod.POST
+    @RequestMapping(method = RequestMethod.POST, path = "/create"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     User post(@ApiParam(required = true) @RequestBody final User user);
     
@@ -150,7 +151,7 @@ public interface Users {
     })
     @RequestMapping(method = RequestMethod.POST, path = "/login"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    LoginResponce login(@ApiParam(required = true) @RequestBody final Credential credential);
+    User login(@ApiParam(required = true) @RequestBody final Credential credential, final HttpServletResponse response);
     
     /**
      * logout user GET endpoint

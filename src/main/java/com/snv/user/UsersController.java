@@ -16,11 +16,14 @@
  */
 package com.snv.user;
 
-import com.snv.guard.AuthGuardFilter;
-import com.snv.guard.Role;
-import com.snv.guard.Secured;
+import com.snv.exceptions.InvalidCredentialException;
+import com.snv.guard.AuthenticationService;
+import com.snv.guard.hmac.HmacException;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,18 +40,23 @@ import org.springframework.web.bind.annotation.RestController;
  * If exceptions occurs, treatment of the corresponding responses are made
  */
 @RestController
-@RequestMapping(value={"/users"})
+@RequestMapping(value={"/api/users"})
 @CrossOrigin(origins = "*")
 public class UsersController implements Users {
 
+    private static final Log LOG = LogFactory.getLog(UsersController.class);
+
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private AuthenticationService authenticationService;
     
     /**
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(method = RequestMethod.POST
+    @RequestMapping(method = RequestMethod.POST, path = "/create"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public User post(@Valid @RequestBody final User user) {
         return this.userService.create(user);
@@ -58,7 +66,6 @@ public class UsersController implements Users {
      * {@inheritDoc}
      */
     @Override
-    @Secured(Role.ADMIN)
     @RequestMapping(value = "/{userId}",
             method = RequestMethod.GET
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -70,7 +77,6 @@ public class UsersController implements Users {
      * {@inheritDoc}
      */
     @Override
-    @Secured(Role.ADMIN)
     @RequestMapping(method = RequestMethod.GET
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<User> getAll() {
@@ -81,7 +87,6 @@ public class UsersController implements Users {
      * {@inheritDoc}
      */
     @Override
-    @Secured({Role.ADMIN, Role.USER})
     @RequestMapping(method = RequestMethod.PUT
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public User put(@RequestBody User user) {
@@ -92,7 +97,6 @@ public class UsersController implements Users {
      * {@inheritDoc}
      */
     @Override
-    @Secured(Role.ADMIN)
     @RequestMapping(method = RequestMethod.DELETE
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Boolean delete(@RequestBody User user) {
@@ -105,18 +109,18 @@ public class UsersController implements Users {
     @Override
     @RequestMapping(method = RequestMethod.POST, path = "/login"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public LoginResponce login(@RequestBody Credential credential) {
-        User user = this.userService.byLogin(credential);
-        LoginResponce loginResponce = new LoginResponce();
-        loginResponce.setUser(user);
-        loginResponce.setToken(this.userService.generateToken());
-        AuthGuardFilter.addToken(loginResponce.getToken(), user);
-        return loginResponce;
+    public User login(@RequestBody final Credential credential, final HttpServletResponse response) {
+        try {
+            return this.authenticationService.authenticate(credential, response);
+        } catch (HmacException e) {
+            LOG.error("Authentication failure", e);
+        }
+        throw new InvalidCredentialException("Authentication failure");
     }
 
     @Override
     public Boolean logout(String token) {
-        AuthGuardFilter.removeToken(token);
+        this.authenticationService.logout();
         return Boolean.TRUE;
     }
     

@@ -20,6 +20,6 @@ package com.snv.guard;
  *
  * @author sylvain
  */
-public enum Role {
+public enum Profile {
     ADMIN,USER
 }

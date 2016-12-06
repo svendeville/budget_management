@@ -16,13 +16,16 @@
  */
 package com.snv.user;
 
-import com.snv.guard.Role;
+import com.snv.guard.Profile;
 import java.io.Serializable;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * Pojo to manage the users
@@ -63,5 +66,11 @@ public class User implements Serializable {
     @Size(min = 3)
     private String password;
     
-    private Role role;
+    private Profile profile;
+    
+    private List<GrantedAuthority> authorities;
+
+    private String publicSecret;
+
+    private String privateSecret;
 }
