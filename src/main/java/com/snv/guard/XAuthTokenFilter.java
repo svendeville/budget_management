@@ -63,6 +63,7 @@ public class XAuthTokenFilter extends GenericFilterBean {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         if (!hmacRequester.canVerify(request)){
+                LOG.info("XAuthTokenFilter :: Authorized");
             filterChain.doFilter(request, response);
         } else {
 

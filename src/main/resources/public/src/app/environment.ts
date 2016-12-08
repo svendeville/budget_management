@@ -14,7 +14,7 @@ reqOptions.headers = new Headers();
 reqOptions.headers.set("Content-Type", "application/json;charset=UTF-8");
 
 let PROPERTIES: any = {
-    HOST_SERVICES : "http://localhost:8080",
+    HOST_SERVICES : "http://localhost:8080/api",
     HOST_OPTIONS: reqOptions
 };
 

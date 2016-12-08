@@ -44,6 +44,7 @@ public class HmacSigner {
      */
     public static HmacToken getSignedToken(String secret, String iss, Integer ttl,Map<String,String> claims) throws HmacException{
 
+                LOG.info("getSignedToken");
         //Generate a random token
         String jwtID = generateToken();
 
@@ -58,6 +59,7 @@ public class HmacSigner {
      * @return a random token
      */
     private static String generateToken(){
+                LOG.info("generateToken");
         return UUID.randomUUID().toString();
     }
 
@@ -67,6 +69,7 @@ public class HmacSigner {
      * @return a random secret
      */
     public static String generateSecret() throws HmacException {
+                LOG.info("generateSecret");
         try {
             return Base64.encodeBase64String(generateToken().getBytes("UTF-8")).replace("\n","").replace("\r","");
         } catch (UnsupportedEncodingException e) {
@@ -85,6 +88,7 @@ public class HmacSigner {
      * @return Signed JWT
      */
     private static String generateJWT(String secret, String jwtID,String iss, Integer ttl,Map<String,String> claims) throws HmacException{
+                LOG.info("generateJWT");
         try {
             return signJWT(secret,jwtID,ttl,iss,claims);
         } catch (JOSEException e) {
@@ -104,6 +108,7 @@ public class HmacSigner {
      * @throws JOSEException
      */
     public static String signJWT(String secret, String jwtID, Integer ttl,String iss, Map<String,String> claims) throws JOSEException {
+                LOG.info("signJWT");
         JWSSigner jwsSigner = new MACSigner(secret.getBytes());
 
         //Create a new claim
@@ -136,6 +141,7 @@ public class HmacSigner {
      * @throws ParseException
      */
     public static Boolean isJwtExpired(String jwtString) throws ParseException {
+                LOG.info("isJwtExpired");
         JWT jwt = JWTParser.parse(jwtString);
         if(jwt.getJWTClaimsSet() != null && jwt.getJWTClaimsSet().getExpirationTime() != null) {
             DateTime expirationDate = new DateTime(jwt.getJWTClaimsSet().getExpirationTime());
@@ -152,6 +158,7 @@ public class HmacSigner {
      * @throws HmacException
      */
     public static Boolean verifyJWT(final String jwt, final String secret) throws HmacException {
+                LOG.info("verifyJWT");
         try {
             SignedJWT signedJWT = SignedJWT.parse(jwt);
             JWSVerifier jwsVerifier = new MACVerifier(secret);
@@ -170,6 +177,7 @@ public class HmacSigner {
      * @throws HmacException
      */
     public static String getJwtClaim(final String jwt, final String claimKey) throws HmacException {
+                LOG.info("getJwtClaim");
         try {
             //Parse jwt string
             SignedJWT signedJWT = SignedJWT.parse(jwt);
@@ -189,6 +197,7 @@ public class HmacSigner {
      * @throws HmacException
      */
     public static String getJwtIss(final String jwt) throws HmacException {
+                LOG.info("getJwtIss");
         try {
             //Parse jwt string
             SignedJWT signedJWT = SignedJWT.parse(jwt);
@@ -209,6 +218,7 @@ public class HmacSigner {
      * @throws HmacException
      */
     public static String encodeMac(final String secret, final String message, final String algorithm) throws HmacException {
+                LOG.info("encodeMac");
         String digest;
         try {
             SecretKeySpec key = new SecretKeySpec(secret.getBytes("UTF-8"), algorithm);

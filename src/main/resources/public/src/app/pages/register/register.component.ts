@@ -3,7 +3,7 @@ import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/form
 import {Router} from "@angular/router";
 import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
 import {RegisterService} from './register.service';
-import { User } from "./../model/user";
+import { User } from "./../model/user/user";
 
 @Component({
   selector: 'register',

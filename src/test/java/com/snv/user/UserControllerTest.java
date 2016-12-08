@@ -38,7 +38,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @RunWith(MockitoJUnitRunner.class)
 public class UserControllerTest {
     
-    private static final String CONTROLLER_URL = "http://localhost:8080/users";
+    private static final String CONTROLLER_URL = "http://localhost:8080/api/users";
     private final ObjectMapper mapper = new ObjectMapper();
     private MockMvc mockMvc;
     @InjectMocks
@@ -92,7 +92,7 @@ public class UserControllerTest {
     public void should_return_user_with_information_on_create() throws Exception {
         when(this.userService.create(Matchers.any(User.class))).thenReturn(this.user);
         
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(CONTROLLER_URL)
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(CONTROLLER_URL + "/create")
         .content(this.mapper.writeValueAsString(user))
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .accept(MediaType.APPLICATION_JSON_UTF8))

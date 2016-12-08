@@ -64,6 +64,7 @@ public class HmacSecurityFilter extends GenericFilterBean {
             Assert.notNull(hmacRequester, "hmacRequester must not be null");
 
             if (!hmacRequester.canVerify(request)) {
+                LOG.info("HmacSecurityFilter :: Authorized");
                 filterChain.doFilter(wrappedRequest, response);
             } else {
                 //Get Authentication header

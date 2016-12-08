@@ -19,6 +19,7 @@ package com.snv.user;
 import com.snv.common.CrudService;
 import com.snv.exceptions.InvalidCredentialException;
 import com.snv.guard.Profile;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -112,6 +113,9 @@ public class UserServiceImpl implements UserService {
     }
     
     private void populateAuthorities(final User user) {
+        if(user.getAuthorities() == null) {
+            user.setAuthorities(new ArrayList<>());
+        }
         switch (user.getProfile().name()) {
             case "ADMIN" :
                 Arrays.asList(Profile.values()).stream().forEach(profile -> user.getAuthorities().add((GrantedAuthority) () -> profile.name()));

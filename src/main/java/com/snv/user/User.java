@@ -18,10 +18,10 @@ package com.snv.user;
 
 import com.snv.guard.Profile;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -68,7 +68,7 @@ public class User implements Serializable {
     
     private Profile profile;
     
-    private List<GrantedAuthority> authorities;
+    private List<GrantedAuthority> authorities = new ArrayList<>();
 
     private String publicSecret;
 

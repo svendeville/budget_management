@@ -1,9 +1,12 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import { HmacHttpClient } from './core/hmac-http-client';
+import { UserEventsService } from './pages/model/user/user.events.service';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -50,7 +53,16 @@ type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {
+        provide: Http,
+        useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, accountEventService: UserEventsService) => {
+           return new HmacHttpClient(xhrBackend, requestOptions, accountEventService);
+        },
+        deps: [XHRBackend, RequestOptions, UserEventsService],
+        multi: false
+    }
   ]
 })
 

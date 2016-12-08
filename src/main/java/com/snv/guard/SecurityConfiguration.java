@@ -55,8 +55,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/api/login").anonymous()
+                    .antMatchers("/api/users/login").anonymous()
                     .antMatchers("/").anonymous()
+                .antMatchers("/api/users/create").anonymous()
                     .antMatchers("/favicon.ico").anonymous()
                     .antMatchers("/api/**").authenticated()
                 .and()
