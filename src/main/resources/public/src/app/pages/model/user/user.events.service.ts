@@ -16,23 +16,22 @@
  */
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
-import {User} from './user';
 
 @Injectable()
 export class UserEventsService extends Subject<any> {
     constructor() {
         super();
     }
-    loginSuccess(user:User) {
-        if(user) {
-            user.authenticated = true;
-            super.next(user);
+    loginSuccess(value:any) {
+        if(value) {
+            value.authenticated = true;
+            super.next(value);
         }
     }
-    logout(user:User) {
-        if(user) {
-            user.authenticated = false;
-            super.next(user);
+    logout(value:any) {
+        if(value) {
+            value.authenticated = false;
+            super.next(value);
         }
     }
 }

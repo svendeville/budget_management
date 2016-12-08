@@ -13,7 +13,7 @@ export const STORAGE_SECURITY_TOKEN:string = 'hmacApp-security';
 
 //Common http root api
 export const BACKEND_API_PATH:string = '/api';
-export const BACKEND_API_AUTHENTICATE_PATH:string = '/authenticate';
+export const BACKEND_API_AUTHENTICATE_PATH:string = '/login';
 export const BACKEND_API_ROOT_URL:string = 'http://localhost:8080'+BACKEND_API_PATH;
 
 export class UrlMatcher {

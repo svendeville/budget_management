@@ -3,7 +3,7 @@
       <h1>Budget Managment<br />Connexion</h1>
     <a routerLink="/register" class="auth-link">Pas encore de compte ? Créez le !</a>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
       <div class="form-group row" [ngClass]="{'has-error': (!login.valid && login.touched), 'has-success': (login.valid && login.touched)}">
         <label for="inputLogin3" class="col-sm-3 control-label">Login</label>
 

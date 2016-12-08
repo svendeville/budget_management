@@ -6,7 +6,7 @@ import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { HmacHttpClient } from './core/hmac-http-client';
-import { UserEventsService } from './pages/model/user/user.events.service';
+import { UserEventsService } from './pages/model/user';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -54,6 +54,7 @@ type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
+    UserEventsService,
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     {
         provide: Http,

@@ -6,7 +6,6 @@
   "homepage": "https://svendeville.github.io/budget_management/",
   "license": "GPL-3.0",
   "dependencies": {
-
     "@angular/common": "2.1.1",
     "@angular/compiler": "2.1.1",
     "@angular/compiler-cli": "2.1.1",
@@ -17,11 +16,9 @@
     "@angular/platform-browser-dynamic": "2.1.1",
     "@angular/platform-server": "2.1.1",
     "@angular/router": "3.1.1",
-
     "@angularclass/conventions-loader": "^1.0.2",
     "@angularclass/hmr": "~1.2.0",
     "@angularclass/hmr-loader": "~3.0.2",
-
     "amcharts3": "github:amcharts/amcharts3",
     "ammap3": "github:amcharts/ammap3",
     "animate.css": "^3.5.1",
@@ -32,7 +29,7 @@
     "chartist": "^0.9.7",
     "ckeditor": "^4.5.9",
     "core-js": "^2.4.1",
-    "crypto-js": "^3.1.7",
+    "crypto-js": "^3.1.8",
     "easy-pie-chart": "^2.1.7",
     "extract-text-webpack-plugin": "2.0.0-beta.3",
     "font-awesome": "^4.6.3",

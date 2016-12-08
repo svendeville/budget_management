@@ -3,7 +3,7 @@ spring:
     banner-mode: off
   application:
     name: mes-comptes-v3
-  resources.static-locations: classpath:/META-INF/resources/,classpath:/public/dist/,classpath:/public/src/,classpath:/resources/,classpath:/static/
+  resources.static-locations: classpath:/META-INF/resources/,classpath:/BOOT-INF/classes/public/dist/,classpath:/public/dist/,classpath:/public/src/,classpath:/resources/,classpath:/static/
   jackson:
       date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
 

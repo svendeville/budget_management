@@ -1,5 +1,8 @@
 import {Component, ViewEncapsulation} from '@angular/core';
+import { Router} from '@angular/router';
 import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import { Credential, User } from './../model/user';
+import {LoginService} from './';
 
 @Component({
   selector: 'login',
@@ -13,8 +16,9 @@ export class Login {
   public login:AbstractControl;
   public password:AbstractControl;
   public submitted:boolean = false;
+  public user:User;
 
-  constructor(fb:FormBuilder) {
+  constructor(private router: Router,fb: FormBuilder, private loginService: LoginService) {
     this.form = fb.group({
       'login': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
@@ -24,11 +28,19 @@ export class Login {
     this.password = this.form.controls['password'];
   }
 
-  public onSubmit(values:Object):void {
+  public onSubmit():void {
     this.submitted = true;
     if (this.form.valid) {
-      // your code goes here
-      // console.log(values);
+        let credential:Credential = new Credential();
+        credential.login = this.login.value;
+        credential.password = this.password.value;
+        this.loginService
+            .post(credential)
+            .subscribe(user => {
+                this.user = user;
+                console.log("Successfully logged", user.firstName + " " + user.lastName);
+                this.router.navigate(['/dashbord']);
+        });
     }
   }
 }

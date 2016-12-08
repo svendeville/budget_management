@@ -24,9 +24,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import {Observer} from 'rxjs/Observer';
-import {CryptoJS} from '../../../../../../../typings/cryptojs/cryptojs.d.ts';
+import * as CryptoJS from 'crypto-js';
 
-///<reference path="../../../../../../../typings/cryptojs/cryptojs.d.ts" />
+///<reference path="../../../typings/crypto-js/crypto-js.d.ts" />
 
 @Injectable()
 export class HmacHttpClient extends Http {
