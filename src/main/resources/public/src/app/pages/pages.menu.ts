@@ -6,7 +6,7 @@ export const PAGES_MENU = [
         path: 'dashboard',
         data: {
           menu: {
-            title: 'Dashboard',
+            title: 'Tableau de bord',
             icon: 'ion-android-home',
             selected: false,
             expanded: false,
@@ -15,26 +15,28 @@ export const PAGES_MENU = [
         }
       },
       {
-        path: 'editors',
+        path: 'budget',
         data: {
           menu: {
-            title: 'Editors',
+            title: 'Budget',
             icon: 'ion-edit',
             selected: false,
             expanded: false,
             order: 100,
           }
-        },
-        children: [
-          {
-            path: 'ckeditor',
-            data: {
-              menu: {
-                title: 'CKEditor',
-              }
-            }
+        }
+      },
+      {
+        path: 'bank-accounts',
+        data: {
+          menu: {
+            title: 'Comptes',
+            icon: 'ion-compose',
+            selected: false,
+            expanded: false,
+            order: 110,
           }
-        ]
+        }
       },
       //{
       //  path: 'components',
@@ -59,10 +61,10 @@ export const PAGES_MENU = [
       //  ]
       //},
       {
-        path: 'charts',
+        path: 'parameters',
         data: {
           menu: {
-            title: 'Charts',
+            title: 'Paramètres',
             icon: 'ion-stats-bars',
             selected: false,
             expanded: false,
@@ -71,10 +73,18 @@ export const PAGES_MENU = [
         },
         children: [
           {
-            path: 'chartist-js',
+            path: 'users',
             data: {
               menu: {
-                title: 'Chartist.Js',
+                title: 'Utilisateurs',
+              }
+            }
+          },
+          {
+            path: 'categories',
+            data: {
+              menu: {
+                title: 'Catégories',
               }
             }
           }

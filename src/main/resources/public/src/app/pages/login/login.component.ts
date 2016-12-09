@@ -39,7 +39,7 @@ export class Login {
             .subscribe(user => {
                 this.user = user;
                 console.log("Successfully logged", user.firstName + " " + user.lastName);
-                this.router.navigate(['/dashbord']);
+                this.router.navigate(['/pages/dashbord']);
         });
     }
   }

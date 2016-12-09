@@ -15,6 +15,7 @@ const routes: Routes = [
     component: Pages,
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'dashboard', loadChildren: () => System.import('./dashboard/dashboard.module') },
       { path: 'ui', loadChildren: () => System.import('./ui/ui.module') }
     ]
   }
