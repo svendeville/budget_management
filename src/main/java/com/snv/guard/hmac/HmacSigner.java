@@ -28,8 +28,14 @@ import org.apache.commons.logging.LogFactory;
 public class HmacSigner {
 
     private static final Log LOG = LogFactory.getLog(HmacSigner.class);
+    private static final String ENCODING = "UTF-8";
 
     public static final String ENCODING_CLAIM_PROPERTY = "l-lev";
+    
+    /**
+     * private constructor to hide the implicit public one.
+     */
+    private HmacSigner(){}
 
     /**
      * Get a signed JWT
@@ -71,7 +77,7 @@ public class HmacSigner {
     public static String generateSecret() throws HmacException {
                 LOG.info("generateSecret");
         try {
-            return Base64.encodeBase64String(generateToken().getBytes("UTF-8")).replace("\n","").replace("\r","");
+            return Base64.encodeBase64String(generateToken().getBytes(ENCODING)).replace("\n","").replace("\r","");
         } catch (UnsupportedEncodingException e) {
             LOG.error("Cannot encode base64", e);
             throw new HmacException("Cannot encode base64",e);
@@ -119,9 +125,9 @@ public class HmacSigner {
                 .issuer(iss);
 
         if(claims != null && !claims.isEmpty()) {
-            claims.entrySet().forEach((entry) -> {
-                builder.claim(entry.getKey(), entry.getValue());
-            });
+            claims.entrySet().forEach(entry -> 
+                builder.claim(entry.getKey(), entry.getValue())
+            );
         }
 
         JWTClaimsSet claimsSet = builder.build();
@@ -221,11 +227,11 @@ public class HmacSigner {
                 LOG.info("encodeMac");
         String digest;
         try {
-            SecretKeySpec key = new SecretKeySpec(secret.getBytes("UTF-8"), algorithm);
+            SecretKeySpec key = new SecretKeySpec(secret.getBytes(ENCODING), algorithm);
             Mac mac = Mac.getInstance(algorithm);
             mac.init(key);
 
-            byte[] bytes = mac.doFinal(message.getBytes("UTF-8"));
+            byte[] bytes = mac.doFinal(message.getBytes(ENCODING));
 
             StringBuilder hash = new StringBuilder();
             for (byte b : bytes) {

@@ -2,7 +2,6 @@ package com.snv.guard;
 
 import com.snv.guard.hmac.HmacRequester;
 import com.snv.guard.hmac.HmacSecurityConfigurer;
-import com.snv.user.User;
 import com.snv.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,10 +25,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -39,6 +34,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     
     @Autowired
     private UserService userService;
+    
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -83,11 +83,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .inMemoryAuthentication()
                     .passwordEncoder(passwordEncoder());
 
-        userService.getAll().forEach((user) -> {
+        userService.getAll().forEach(user -> 
             configurer.withUser(user.getLogin())
                     .password(passwordEncoder().encode(user.getPassword()))
-                    .roles(user.getProfile().name());
-        });
+                    .roles(user.getProfile().name())
+        );
     }
 
     @Bean

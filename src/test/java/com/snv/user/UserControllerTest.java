@@ -17,8 +17,11 @@
 package com.snv.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.snv.guard.AuthenticationService;
+import com.snv.guard.Profile;
 import java.util.Arrays;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,10 +48,13 @@ public class UserControllerTest {
     private UsersController usersController;
     @Mock
     private UserService userService;
+    @Mock
+    private AuthenticationService authenticationService;
     
     private final ObjectMapper objectMapper = new ObjectMapper();
     
     private User user;
+    private Credential credential;
     
     @Before
     public void setup() {
@@ -58,8 +64,12 @@ public class UserControllerTest {
         this.user.setFirstName("toto");
         this.user.setLastName("tata");
         this.user.setEmail("toto.tata@lol.com");
+        this.user.setProfile(Profile.ADMIN);
         this.user.setLogin("test");
         this.user.setPassword("pass");
+        this.credential = new Credential();
+        this.credential.setLogin("test");
+        this.credential.setPassword("pass");
     }
     
     @Test
@@ -196,5 +206,30 @@ public class UserControllerTest {
         Boolean actual = objectMapper.readValue(result.getResponse().getContentAsString(), Boolean.class);
         assertNotNull("result on delete can not be null !", actual);
         assertTrue("result on delete is not true !", actual);
+    }
+    
+    @Test
+    public void should_return_user_on_login () throws Exception {
+        when(this.authenticationService.authenticate(Matchers.any(Credential.class), Matchers.any(HttpServletResponse.class))).thenReturn(this.user);
+        
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(CONTROLLER_URL + "/login")
+        .content(this.mapper.writeValueAsString(user))
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+                .andReturn();
+        
+        verify(this.authenticationService, times(1)).authenticate(Matchers.any(Credential.class), Matchers.any(HttpServletResponse.class));
+        
+        
+        assertFalse(result.getResponse().getContentAsString().isEmpty());
+        User actual = objectMapper.readValue(result.getResponse().getContentAsString(), User.class);
+        assertNotNull("user created can not be null !", actual);
+        assertEquals("users not same !", actual, this.user);
+        assertEquals("user's first name is not same", actual.getFirstName(), this.user.getFirstName());
+        assertEquals("user's last name is not same", actual.getLastName(), this.user.getLastName());
+        assertEquals("user's email name is not same", actual.getEmail(), this.user.getEmail());
+        assertEquals("user's login name is not same", actual.getLogin(), this.user.getLogin());
+        assertEquals("user's password name is not same", actual.getPassword(), this.user.getPassword());
     }
 }

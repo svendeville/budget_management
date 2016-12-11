@@ -133,6 +133,11 @@ public class UserCrudServiceTest {
       
       Assert.assertTrue("User is not deleted", isDeleted);
    }
+    
+    @Test(expected = IllegalStateException.class)
+    public void should_throw_IllegalStateException_when_try_second_implentation () {
+        new UserCrudService();
+    }
    
    private void openService() {
       if (!service.isOpen()) {

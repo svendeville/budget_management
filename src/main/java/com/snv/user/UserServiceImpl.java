@@ -90,26 +90,20 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User byLogin(String login) {
-       List<User> users = this.getAll();
-       User user = users
-               .stream()
-               .filter(u -> 
-                       u.getLogin().equals(login))
-               .findFirst()
-               .orElse(null);
-       if (user != null) {
-           this.populateAuthorities(user);
-           return user;
-       }
-       throw new InvalidCredentialException("User can not be found from login passed !");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public UUID generateToken() {
-        return UUID.randomUUID();
+        List<User> users = this.getAll();
+        if (users != null && !users.isEmpty()) {
+            User user = users
+                    .stream()
+                    .filter(u -> 
+                            u.getLogin().equals(login))
+                    .findFirst()
+                    .orElse(null);
+            if (user != null) {
+                this.populateAuthorities(user);
+                return user;
+            }
+        }
+        throw new InvalidCredentialException("User can not be found from login passed !");
     }
     
     private void populateAuthorities(final User user) {

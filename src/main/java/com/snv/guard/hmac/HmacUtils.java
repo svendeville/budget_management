@@ -18,5 +18,8 @@ public class HmacUtils {
     public static final String X_ONCE = "X-Once";
     public static final String X_ISS = "X-ISS";
 
-
+    /**
+     * private constructor to hide the implicit public one.
+     */
+    private HmacUtils(){}
 }

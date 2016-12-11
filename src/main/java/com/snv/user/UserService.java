@@ -72,10 +72,4 @@ public interface UserService {
      * @return The user found by login, InvalidCredentialException otherwise
      */
     User byLogin(final String login);
-    
-    /**
-     * Generate new token for current session
-     * @return new string token
-     */
-    UUID generateToken();
 }

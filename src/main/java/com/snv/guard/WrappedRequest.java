@@ -1,6 +1,5 @@
 package com.snv.guard;
 
-import org.apache.log4j.Logger;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -19,7 +18,7 @@ public class WrappedRequest extends HttpServletRequestWrapper {
         // Read InputStream and store its content in a buffer.
         InputStream is = req.getInputStream();
         this.baos = new ByteArrayOutputStream();
-        byte buf[] = new byte[1024];
+        byte[] buf = new byte[1024];
         int read;
         while ((read = is.read(buf)) > 0) {
             this.baos.write(buf, 0, read);
@@ -37,7 +36,7 @@ public class WrappedRequest extends HttpServletRequestWrapper {
     public String getBody() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 this.getInputStream()));
-        String line = null;
+        String line;
         StringBuilder inputBuffer = new StringBuilder();
         do {
             line = reader.readLine();
@@ -84,7 +83,7 @@ public class WrappedRequest extends HttpServletRequestWrapper {
 
         @Override
         public void setReadListener(ReadListener readListener) {
-
+            throw new UnsupportedOperationException();
         }
     }
 }
