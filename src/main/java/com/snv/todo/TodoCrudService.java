@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with MesComptes. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.snv.user;
+package com.snv.todo;
 
 import com.snv.berkeleydb.CatalogDataBase;
 import com.snv.berkeleydb.DataBaseFactory;
@@ -25,20 +25,20 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author Sylvain
+ * @author sylvain
  */
 @Service
-public final class UserCrudService extends DataBaseFactory<User> implements CrudService<User> {
+public class TodoCrudService extends DataBaseFactory<Todo> implements CrudService<Todo> {
     
-    private static boolean isUserCrudServiceImplemented = Boolean.FALSE;
-    private static final DataBaseNamesEnum USERCRUDSERVICENAME = DataBaseNamesEnum.USERS;
+    private static boolean isTodoCrudServiceImplemented = Boolean.FALSE;
+    private static final DataBaseNamesEnum TODOCRUDSERVICENAME = DataBaseNamesEnum.TODOS;
 
-    public UserCrudService() {
-        if (!Boolean.FALSE.equals(isUserCrudServiceImplemented)) {
-            throw new IllegalStateException("L'instance UserCrudService ne peut être implémenté plus d'une fois.");
+    public TodoCrudService() {
+        if (!Boolean.FALSE.equals(isTodoCrudServiceImplemented)) {
+            throw new IllegalStateException("L'instance TodoCrudService ne peut être implémenté plus d'une fois.");
         }
         this.open();
-        isUserCrudServiceImplemented = Boolean.TRUE;
+        isTodoCrudServiceImplemented = Boolean.TRUE;
     }
 
     /**
@@ -54,7 +54,7 @@ public final class UserCrudService extends DataBaseFactory<User> implements Crud
      */
     @Override
     public void open() {
-        super.open(USERCRUDSERVICENAME);
+        super.open(TODOCRUDSERVICENAME);
     }
 
     /**
@@ -69,8 +69,8 @@ public final class UserCrudService extends DataBaseFactory<User> implements Crud
      * {@inheritDoc}
      */
     @Override
-    public User create(User entity) {
-        final Long primaryKey = CatalogDataBase.getInstance().getNextSequence(USERCRUDSERVICENAME.name());
+    public Todo create(Todo entity) {
+        final Long primaryKey = CatalogDataBase.getInstance().getNextSequence(TODOCRUDSERVICENAME.name());
         entity.setId(primaryKey);
         if (super.insertEntity(primaryKey, entity)) {
             return entity;
@@ -82,7 +82,7 @@ public final class UserCrudService extends DataBaseFactory<User> implements Crud
      * {@inheritDoc}
      */
     @Override
-    public User get(long entityKey) {
+    public Todo get(long entityKey) {
         return super.get(entityKey);
     }
     
@@ -90,7 +90,7 @@ public final class UserCrudService extends DataBaseFactory<User> implements Crud
      * {@inheritDoc}
      */
     @Override
-    public List<User> getAll() {
+    public List<Todo> getAll() {
         return super.getAll();
     }
 
@@ -98,7 +98,7 @@ public final class UserCrudService extends DataBaseFactory<User> implements Crud
      * {@inheritDoc}
      */
     @Override
-    public User update(User entity) {
+    public Todo update(Todo entity) {
         if (super.updateEntity(entity.getId(), entity)) {
             return entity;
         }
@@ -117,7 +117,7 @@ public final class UserCrudService extends DataBaseFactory<User> implements Crud
      * {@inheritDoc}
      */
     @Override
-    public boolean delete(User entity) {
+    public boolean delete(Todo entity) {
         return this.delete(entity.getId());
     }
     

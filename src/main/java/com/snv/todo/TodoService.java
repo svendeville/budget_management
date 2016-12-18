@@ -16,40 +16,38 @@
  */
 package com.snv.todo;
 
-import java.io.Serializable;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import lombok.Data;
-import org.hibernate.validator.constraints.NotBlank;
+import java.util.List;
 
-@Data
-public class Todo implements Serializable {
-    
+/**
+ * Crud Interface that manages Todos.
+ */
+public interface TodoService {
+
     /**
-     * Serial Version for Serialization
+     * Create user POST endpoint
+     * @param todo the todo to create
+     * @return the same todo with an identifier
      */
-    private static final long serialVersionUID = -1654259065593124107L;
-    
+    public Todo create(Todo todo);
+
     /**
-     * Technical identifier
+     * Get all users
+     * @return the list of user containing all dataBase users
      */
-    private Long id;
-    
+    public List<Todo> getAll();
+
     /**
-     * Todo's text descript of task
+     * Udapte user PUT endpoint
+     * @param todo the todo to update
+     * @return the same todo.
      */
-    @NotNull
-    @NotBlank
-    @Size(max = 255)
-    private String text;
-    
+    public Todo put(Todo todo);
+
     /**
-     * Color of text in user interface
+     * Delete todo POST endpoint
+     * @param todo the todo to delete
+     * @return boolean true if todo is successfuly deleted, false otherwise
      */
-    private String color;
+    public Boolean delete(Todo todo);
     
-    /**
-     * is todo finished ?
-     */
-    private boolean finished = false;
 }

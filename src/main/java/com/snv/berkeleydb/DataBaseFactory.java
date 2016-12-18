@@ -136,10 +136,10 @@ public abstract class DataBaseFactory<T> {
         try {
             this.entryBinding = new SerialBinding<>(this.catalog, null);
             this.keyBinding = new LongBinding();
-            this.db = this.env.openDatabase(txn, dbName.getValue(), this.dbConfig);
+            this.db = this.env.openDatabase(txn, dbName.name(), this.dbConfig);
         } catch (final RuntimeException e) {
             txn.abort();
-            final String msg = String.format("Erreur lors de l'ouverture de la Base de données : %s", dbName.getValue());
+            final String msg = String.format("Erreur lors de l'ouverture de la Base de données : %s", dbName.name());
             LOG.error(msg, e);
             throw new BudgetDataBaseException(msg, e);
         } finally {

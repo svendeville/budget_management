@@ -27,6 +27,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * Rest Crud Iterface that manages Todos request. Its main function is to catch request, convert data
+ * into functional one and delegate to service the tasks to perform operations upon TodoController.
+ * Finally, send the response back to the consumer
+ * If exceptions occurs, treatment of the corresponding responses are made
+ */
 @Api(tags={"todos"}, value="Todos Crud Api to manage the Todo list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @RequestMapping(value="/api/todos", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public interface Todos {

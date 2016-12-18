@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Rest Crud Iterface that manages Users request. Its main function is to catch request, convert data
+ * Rest Crud Implentation that manages Users request. Its main function is to catch request, convert data
  * into functional one and delegate to service the tasks to perform operations upon UserController.
  * Finally, send the response back to the consumer
  * If exceptions occurs, treatment of the corresponding responses are made

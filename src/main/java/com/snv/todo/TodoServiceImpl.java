@@ -16,40 +16,51 @@
  */
 package com.snv.todo;
 
-import java.io.Serializable;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import lombok.Data;
-import org.hibernate.validator.constraints.NotBlank;
+import com.snv.common.CrudService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@Data
-public class Todo implements Serializable {
+/**
+ *
+ * @author sylvain
+ */
+@Component
+public class TodoServiceImpl implements TodoService {
     
+    @Autowired
+    private CrudService<Todo> crudService;
+
     /**
-     * Serial Version for Serialization
+     * {@inheritDoc}
      */
-    private static final long serialVersionUID = -1654259065593124107L;
+    @Override
+    public Todo create(Todo todo) {
+        return crudService.create(todo);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Todo> getAll() {
+        return crudService.getAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Todo put(Todo todo) {
+        return crudService.update(todo);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean delete(Todo todo) {
+        return crudService.delete(todo);
+    }
     
-    /**
-     * Technical identifier
-     */
-    private Long id;
-    
-    /**
-     * Todo's text descript of task
-     */
-    @NotNull
-    @NotBlank
-    @Size(max = 255)
-    private String text;
-    
-    /**
-     * Color of text in user interface
-     */
-    private String color;
-    
-    /**
-     * is todo finished ?
-     */
-    private boolean finished = false;
 }

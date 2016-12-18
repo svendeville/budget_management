@@ -1,22 +1,43 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Http, RequestOptions } from "@angular/http";
+import { Observable } from "rxjs/Observable";
+import { Todo } from "./";
+import { SerializationHelper } from "./../../../helper/serialization-helper";
+import * as AppConst from './../../../core/app.const';
+import { ENV_PROPERTIES } from './../../../environment';
 
 @Injectable()
 export class TodoService {
 
-  private _todoList = [
-    { text: 'Check me out', color:"", finished:false, deleted:false },
-    { text: 'Lorem ipsum dolor sit amet, possit denique oportere at his, etiam corpora deseruisse te pro', color:"", finished:false, deleted:false },
-    { text: 'Ex has semper alterum, expetenda dignissim', color:"", finished:false, deleted:false },
-    { text: 'Vim an eius ocurreret abhorreant, id nam aeque persius ornatus.', color:"", finished:false, deleted:false },
-    { text: 'Simul erroribus ad usu', color:"", finished:false, deleted:false },
-    { text: 'Ei cum solet appareat, ex est graeci mediocritatem', color:"", finished:false, deleted:false },
-    { text: 'Get in touch with akveo team', color:"", finished:false, deleted:false },
-    { text: 'Write email to business cat', color:"", finished:false, deleted:false },
-    { text: 'Have fun with blur admin', color:"", finished:false, deleted:false },
-    { text: 'What do you think?', color:"", finished:false, deleted:false },
-  ];
+    constructor(private _http: Http) { }
 
-  getTodoList() {
-    return this._todoList;
-  }
+    private _todoList: Todo[];
+
+    public getTodoList(): Observable<Todo[]> {
+        let that = this;
+        return this._http.get(AppConst.BACKEND_API_ROOT_URL + "/todos")
+            .map(resp => <Object[]>resp.json())
+            .map(jsonTodos => {
+                jsonTodos.forEach(jsonTodo => that._todoList.push(SerializationHelper.toInstanceFromJsonObj(new Todo(), jsonTodo)));
+                return that._todoList;
+            });
+    }
+
+    public post(todo: Todo): Observable<Todo> {
+        return this._http.post(AppConst.BACKEND_API_ROOT_URL + "/todos", JSON.stringify(todo), ENV_PROPERTIES["HOST_OPTIONS"])
+            .map(resp => SerializationHelper.toInstanceFromJsonObj(new Todo(), resp.json()));
+    }
+
+    public put(todo: Todo): Observable<Todo> {
+        return this._http.put(AppConst.BACKEND_API_ROOT_URL + "/todos", JSON.stringify(todo), ENV_PROPERTIES["HOST_OPTIONS"])
+            .map(resp => SerializationHelper.toInstanceFromJsonObj(new Todo(), resp.json()));
+    }
+
+    public delete(todo: Todo): Observable<boolean> {
+        let requestOptions: RequestOptions = new RequestOptions();
+        requestOptions.merge(ENV_PROPERTIES["HOST_OPTIONS"]);
+        requestOptions.body = JSON.stringify(todo);
+        return this._http.delete(AppConst.BACKEND_API_ROOT_URL + "/todos", requestOptions)
+            .map(resp => resp.json());
+    }
 }

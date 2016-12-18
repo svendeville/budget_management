@@ -4,16 +4,16 @@
   <div class="box-shadow-border"></div>
 
   <ul class="todo-list">
-    <li *ngFor="let item of getNotDeleted()" [ngClass]="{checked: item.isChecked, active: item.isActive}"
+    <li *ngFor="let item of todoList" [ngClass]="{checked: item.finished, active: item.isActive}"
         (mouseenter)="item.isActive=true" (mouseleave)="item.isActive=false">
 
       <div class="blur-container"><div class="blur-box"></div></div>
       <i class="mark" [ngStyle]="{ 'background-color': item.color }"></i>
       <label class="todo-checkbox custom-checkbox custom-input-success">
-        <input type="checkbox" [(ngModel)]="item.isChecked">
+        <input type="checkbox" [ngModel]="item.finished" (click)="updateFinishedItem(item)">
         <span class="cut-with-dots">{{ item.text }}</span>
       </label>
-      <i class="remove-todo ion-ios-close-empty" (click)="item.deleted = true"></i>
+      <i class="remove-todo ion-ios-close-empty" (click)="deleteItem(item)"></i>
     </li>
   </ul>
 </div>

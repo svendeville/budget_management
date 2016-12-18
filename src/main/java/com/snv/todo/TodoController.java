@@ -17,43 +17,67 @@
 package com.snv.todo;
 
 import java.util.List;
+import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
- * @author sylvain
+ * Rest Crud implementaion that manages Todos request. Its main function is to catch request, convert data
+ * into functional one and delegate to service the tasks to perform operations upon TodoController.
+ * Finally, send the response back to the consumer
+ * If exceptions occurs, treatment of the corresponding responses are made
  */
+@RestController
+@RequestMapping(value = {"api/todos"})
+@CrossOrigin(origins = "*")
 public class TodoController implements Todos {
+    
+    @Autowired
+    private TodoService todoService;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Todo post(Todo todo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @RequestMapping(method = RequestMethod.POST
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Todo post(@Valid @RequestBody final Todo todo) {
+        return todoService.create(todo);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
+    @RequestMapping(method = RequestMethod.GET
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Todo> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return todoService.getAll();
     }
 
     /**
      * {@inheritDoc}
      */
+    @RequestMapping(method = RequestMethod.PUT
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public Todo put(Todo todo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Todo put(@Valid @RequestBody final Todo todo) {
+        return todoService.put(todo);
     }
 
     /**
      * {@inheritDoc}
      */
+    @RequestMapping(method = RequestMethod.DELETE
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public Boolean delete(Todo todo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean delete(@Valid @RequestBody final Todo todo) {
+        return todoService.delete(todo);
     }
     
 }
