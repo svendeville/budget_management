@@ -1,7 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaThemeConfigProvider } from '../../../theme';
 
-import { TodoService, Todo } from './';
+import { TodoService } from './todo.service';
+import { Todo } from './todo';
 
 @Component({
     selector: 'todo',
@@ -13,7 +14,7 @@ export class TodoComponent {
 
     public dashboardColors: any;
 
-    public todoList: Todo[];
+    public todoList: Todo[] = new Array();
     public newTodoText: string = '';
 
     constructor(private _baConfig: BaThemeConfigProvider, private _todoService: TodoService) {

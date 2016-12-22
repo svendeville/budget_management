@@ -7,10 +7,9 @@ import { BaThemeConfigProvider } from '../../theme';
 import { Dashboard } from './dashboard.component';
 import { routing }       from './dashboard.routing';
 
-import { TodoComponent } from './todo';
+import { TodoService, TodoComponent } from './todo';
 import { Calendar } from './calendar';
 import { CalendarService } from './calendar/calendar.service';
-import { TodoService } from './todo';
 
 @NgModule({
   imports: [

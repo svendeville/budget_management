@@ -26,7 +26,7 @@ export class Calendar {
 
     if (this._calendar != null) {
       let title = prompt('Event Title:');
-      let eventData;
+      let eventData:any;
       if (title) {
         eventData = {
           title: title,

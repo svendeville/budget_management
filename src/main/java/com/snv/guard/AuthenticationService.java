@@ -76,7 +76,7 @@ public class AuthenticationService {
 
         // Add jwt cookie
         Cookie jwtCookie = new Cookie(JWT_APP_COOKIE,hmacToken.getJwt());
-        jwtCookie.setSecure(true);
+        jwtCookie.setSecure(false);
         jwtCookie.setPath("/");
         jwtCookie.setMaxAge(20*60);
         //Cookie cannot be accessed via JavaScript
