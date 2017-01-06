@@ -101,6 +101,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
 
     private XAuthTokenConfigurer authTokenConfigurer(){
-        return new XAuthTokenConfigurer(authenticationService, hmacRequester);
+        return new XAuthTokenConfigurer(authenticationService, hmacRequester, userService);
     }
 }

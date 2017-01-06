@@ -5,6 +5,8 @@ import com.snv.guard.hmac.HmacRequester;
 import com.snv.guard.hmac.HmacSigner;
 import com.snv.user.User;
 import com.snv.user.UserService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.util.Assert;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -17,9 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Auth token filter
@@ -30,13 +29,12 @@ public class XAuthTokenFilter extends GenericFilterBean {
     private static final Log LOG = LogFactory.getLog(XAuthTokenFilter.class);
     private final AuthenticationService authenticationService;
     private final HmacRequester hmacRequester;
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
-
-    public XAuthTokenFilter(AuthenticationService authenticationService, HmacRequester hmacRequester) {
+    public XAuthTokenFilter(AuthenticationService authenticationService, HmacRequester hmacRequester, UserService userService) {
        this.hmacRequester = hmacRequester;
        this.authenticationService = authenticationService;
+        this.userService = userService;
     }
 
     /**
