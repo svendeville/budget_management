@@ -1,8 +1,8 @@
-import {Component, ViewEncapsulation} from '@angular/core';
-import { Router} from '@angular/router';
-import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import { Credential, User } from './../model/user';
-import {LoginService} from './';
+import {Component, ViewEncapsulation} from "@angular/core";
+import {Router} from "@angular/router";
+import {FormGroup, AbstractControl, FormBuilder, Validators} from "@angular/forms";
+import {Credential, User} from "./../model/user";
+import {LoginService} from "./";
 
 @Component({
   selector: 'login',
@@ -39,7 +39,7 @@ export class Login {
             .subscribe(user => {
                 this.user = user;
                 console.log("Successfully logged", user.firstName + " " + user.lastName);
-                this.router.navigate(["/pages/dashbord"]);
+              this.router.navigate(["/pages/dashboard"]);
         });
     }
   }

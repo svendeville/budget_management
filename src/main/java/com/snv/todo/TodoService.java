@@ -28,26 +28,26 @@ public interface TodoService {
      * @param todo the todo to create
      * @return the same todo with an identifier
      */
-    public Todo create(Todo todo);
+    Todo create(Todo todo);
 
     /**
      * Get all users
      * @return the list of user containing all dataBase users
      */
-    public List<Todo> getAll();
+    List<Todo> getAll();
 
     /**
      * Udapte user PUT endpoint
      * @param todo the todo to update
      * @return the same todo.
      */
-    public Todo put(Todo todo);
+    Todo put(Todo todo);
 
     /**
      * Delete todo POST endpoint
-     * @param todo the todo to delete
-     * @return boolean true if todo is successfuly deleted, false otherwise
+     * @param todoId the todo technical identifier to delete
+     * @return boolean true if todo is successfully deleted, false otherwise
      */
-    public Boolean delete(Todo todo);
+    Boolean delete(Long todoId);
     
 }

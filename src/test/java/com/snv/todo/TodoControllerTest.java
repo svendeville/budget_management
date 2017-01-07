@@ -17,16 +17,12 @@
 package com.snv.todo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Arrays;
-import java.util.List;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.mockito.Mock;
-import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,19 +31,23 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class TodoControllerTest {
     
     private static final String CONTROLLER_URL = "http://localhost:8080/api/todos";
     private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private MockMvc mockMvc;
     @InjectMocks
     private TodoController todoController;
     @Mock
     private TodoService todoService;
-    
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    
     private Todo todo;
     
     @Before
@@ -148,16 +148,15 @@ public class TodoControllerTest {
     
     @Test
     public void should_return_boolean_true_on_delete_success() throws Exception {
-        when(this.todoService.delete(Matchers.any(Todo.class))).thenReturn(Boolean.TRUE);
-        
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete(CONTROLLER_URL)
-        .content(this.mapper.writeValueAsString(todo))
+        when(this.todoService.delete(Matchers.anyLong())).thenReturn(Boolean.TRUE);
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete(CONTROLLER_URL + "/" + todo.getId())
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
                 .andReturn();
-        
-        verify(this.todoService, times(1)).delete(Matchers.any(Todo.class));
+
+        verify(this.todoService, times(1)).delete(Matchers.anyLong());
         
         
         Boolean actual = objectMapper.readValue(result.getResponse().getContentAsString(), Boolean.class);

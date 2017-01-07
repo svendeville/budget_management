@@ -1,8 +1,7 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { BaThemeConfigProvider } from '../../../theme';
-
-import { TodoService } from './todo.service';
-import { Todo } from './todo';
+import {Component, ViewEncapsulation} from "@angular/core";
+import {BaThemeConfigProvider} from "../../../theme";
+import {TodoService} from "./todo.service";
+import {Todo} from "./todo";
 
 @Component({
     selector: 'todo',
@@ -68,7 +67,7 @@ export class TodoComponent {
                         }
                     });
                     if (toDelete > -1) {
-                        that.todoList.splice(toDelete);
+                      that.todoList.splice(toDelete, 1);
                     }
                 }
             });

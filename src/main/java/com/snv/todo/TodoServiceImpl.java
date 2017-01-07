@@ -17,9 +17,10 @@
 package com.snv.todo;
 
 import com.snv.common.CrudService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  *
@@ -59,8 +60,8 @@ public class TodoServiceImpl implements TodoService {
      * {@inheritDoc}
      */
     @Override
-    public Boolean delete(Todo todo) {
-        return crudService.delete(todo);
+    public Boolean delete(Long todoId) {
+        return crudService.delete(todoId);
     }
     
 }

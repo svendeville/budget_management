@@ -3,6 +3,8 @@ package com.snv.guard.hmac;
 import com.snv.guard.AuthenticationService;
 import com.snv.guard.WrappedRequest;
 import org.apache.commons.io.Charsets;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.util.Assert;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -17,8 +19,6 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Hmac verification filter
@@ -26,10 +26,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public class HmacSecurityFilter extends GenericFilterBean {
 
-    private static final Log LOG = LogFactory.getLog(HmacSecurityFilter.class);
-
     public static final Integer JWT_TTL = 20;
-
+    private static final Log LOG = LogFactory.getLog(HmacSecurityFilter.class);
     private final HmacRequester hmacRequester;
 
     public HmacSecurityFilter(HmacRequester hmacRequester) {
@@ -103,7 +101,7 @@ public class HmacSecurityFilter extends GenericFilterBean {
                 Assert.notNull(secret, "Secret key cannot be null");
 
                 String message;
-                if ("POST".equals(request.getMethod()) || "PUT".equals(request.getMethod()) || "PATCH".equals(request.getMethod())) {
+                if ("POST".equals(request.getMethod()) || "PUT".equals(request.getMethod()) || "DELETE".equals(request.getMethod()) || "PATCH".equals(request.getMethod())) {
                     message = request.getMethod().concat(wrappedRequest.getBody()).concat(url).concat(xOnceHeader);
                 } else {
                     message = request.getMethod().concat(url).concat(xOnceHeader);

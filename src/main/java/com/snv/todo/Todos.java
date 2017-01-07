@@ -16,16 +16,14 @@
  */
 package com.snv.todo;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import java.util.List;
+import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 /**
  * Rest Crud Iterface that manages Todos request. Its main function is to catch request, convert data
@@ -95,8 +93,8 @@ public interface Todos {
     
     /**
      * Delete todo POST endpoint
-     * @param todo the todo to delete
-     * @return boolean true if todo is successfuly deleted, false otherwise
+     * @param todoId the todo technical identifier to delete
+     * @return boolean true if todo is successfully deleted, false otherwise
      */
     @ApiOperation(value="Delete todo endPoint", 
             notes = "Delete the parameter passed todo")
@@ -108,7 +106,7 @@ public interface Todos {
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")
     })
-    @RequestMapping(method = RequestMethod.DELETE
+    @RequestMapping(path = "/{todoId}", method = RequestMethod.DELETE
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    Boolean delete(@ApiParam(required = true) @RequestBody final Todo todo);
+    Boolean delete(@ApiParam(required = true) @PathVariable("todoId") final Long todoId);
 }

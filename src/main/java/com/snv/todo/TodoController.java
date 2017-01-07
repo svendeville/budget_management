@@ -16,15 +16,12 @@
  */
 package com.snv.todo;
 
-import java.util.List;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Rest Crud implementaion that manages Todos request. Its main function is to catch request, convert data
@@ -73,11 +70,11 @@ public class TodoController implements Todos {
     /**
      * {@inheritDoc}
      */
-    @RequestMapping(method = RequestMethod.DELETE
+    @RequestMapping(path = "/{todoId}", method = RequestMethod.DELETE
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public Boolean delete(@Valid @RequestBody final Todo todo) {
-        return todoService.delete(todo);
+    public Boolean delete(@PathVariable("todoId") final Long todoId) {
+        return todoService.delete(todoId);
     }
     
 }

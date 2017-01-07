@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Http, RequestOptions } from "@angular/http";
-import { Observable } from "rxjs/Observable";
-import { Todo } from "./";
-import { SerializationHelper } from "./../../../helper/serialization-helper";
-import * as AppConst from './../../../core/app.const';
-import { ENV_PROPERTIES } from './../../../environment';
+import {Injectable} from "@angular/core";
+import {Http, RequestOptions} from "@angular/http";
+import {Observable} from "rxjs/Observable";
+import {Todo} from "./";
+import {SerializationHelper} from "./../../../helper/serialization-helper";
+import * as AppConst from "./../../../core/app.const";
+import {ENV_PROPERTIES} from "./../../../environment";
 
 @Injectable()
 export class TodoService {
@@ -15,6 +15,7 @@ export class TodoService {
 
     public getTodoList(): Observable<Todo[]> {
         let that = this;
+      this._todoList = new Array();
         return this._http.get(AppConst.BACKEND_API_ROOT_URL + "/todos")
             .map(resp => <Object[]>resp.json())
             .map(jsonTodos => {
@@ -37,7 +38,7 @@ export class TodoService {
         let requestOptions: RequestOptions = new RequestOptions();
         requestOptions.merge(ENV_PROPERTIES["HOST_OPTIONS"]);
         requestOptions.body = JSON.stringify(todo);
-        return this._http.delete(AppConst.BACKEND_API_ROOT_URL + "/todos", requestOptions)
+      return this._http.delete(AppConst.BACKEND_API_ROOT_URL + "/todos/" + todo.id, requestOptions)
             .map(resp => resp.json());
     }
 }

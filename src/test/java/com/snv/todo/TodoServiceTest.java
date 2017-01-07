@@ -17,9 +17,6 @@
 package com.snv.todo;
 
 import com.snv.common.CrudService;
-import java.util.Arrays;
-import java.util.List;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +25,11 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -81,7 +83,7 @@ public class TodoServiceTest {
     @Test
     public void should_return_true_when_delete_todo () {
         Mockito.when(this.todoCrudService.delete(Matchers.any(Todo.class))).thenReturn(Boolean.TRUE);
-        boolean actual = this.todoService.delete(this.todo);
+        boolean actual = this.todoService.delete(this.todo.getId());
         verify(this.todoCrudService, Mockito.times(1)).delete(Matchers.any(Todo.class));
         assertTrue(actual);
     }
