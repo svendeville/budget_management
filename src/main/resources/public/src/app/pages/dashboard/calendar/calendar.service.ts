@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {BaThemeConfigProvider} from '../../../theme';
+import {Injectable} from "@angular/core";
+import {BaThemeConfigProvider} from "../../../theme";
 
 @Injectable()
 export class CalendarService {
@@ -16,7 +16,7 @@ export class CalendarService {
         center: 'title',
         right: 'month,agendaWeek,agendaDay'
       },
-      defaultDate: '2016-03-08',
+      defaultDate: Date.now(),
       selectable: true,
       selectHelper: true,
       editable: true,
