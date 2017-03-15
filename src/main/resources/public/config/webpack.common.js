@@ -22,8 +22,8 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
  */
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = {
-  title: 'budget-managment - Angular 2 Budget managment',
-  description: 'Manage your budget from easy user interface.',
+  title: 'ng2-admin - Angular 2 Admin Template',
+  description: 'Free Angular 2 and Bootstrap 4 Admin Template',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };

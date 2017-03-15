@@ -18,20 +18,17 @@ package com.snv.user;
 
 import com.snv.exceptions.InvalidCredentialException;
 import com.snv.guard.AuthenticationService;
+import com.snv.guard.Profile;
 import com.snv.guard.hmac.HmacException;
-import java.util.List;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Rest Crud Implentation that manages Users request. Its main function is to catch request, convert data
@@ -59,6 +56,9 @@ public class UsersController implements Users {
     @RequestMapping(method = RequestMethod.POST, path = "/create"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public User post(@Valid @RequestBody final User user) {
+        if (user.getProfile() == null) {
+            user.setProfile(Profile.ADMIN);
+        }
         return this.userService.create(user);
     }
 

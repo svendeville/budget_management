@@ -1,25 +1,23 @@
-import { NgModule, ApplicationRef } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
-import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
-import { HmacHttpClient } from './core/hmac-http-client';
-import { UserEventsService } from './pages/model/user';
-
+import {NgModule, ApplicationRef} from "@angular/core";
+import {BrowserModule} from "@angular/platform-browser";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpModule, XHRBackend, Http, RequestOptions} from "@angular/http";
+import {RouterModule} from "@angular/router";
+import {removeNgStyles, createNewHosts, createInputTransfer} from "@angularclass/hmr";
 /*
  * Platform and Environment providers/directives/pipes
  */
-import { ENV_PROVIDERS } from './environment';
-import { routing } from './app.routing';
-
+import {ENV_PROVIDERS} from "./environment";
+import {routing} from "./app.routing";
 // App is our top level component
-import { App } from './app.component';
-import { AppState, InternalStateType } from './app.service';
-import { GlobalState } from './global.state';
-import { NgaModule } from './theme/nga.module';
-import { PagesModule } from './pages/pages.module';
+import {App} from "./app.component";
+import {AppState, InternalStateType} from "./app.service";
+import {GlobalState} from "./global.state";
+import {NgaModule} from "./theme/nga.module";
+import {PagesModule} from "./pages/pages.module";
+import {UserEventsService} from "./pages/model/user/user.events.service";
+import {HmacHttpClient} from "./core/hmac-http-client";
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -57,12 +55,12 @@ type StoreType = {
     UserEventsService,
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     {
-        provide: Http,
-        useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, accountEventService: UserEventsService) => {
-           return new HmacHttpClient(xhrBackend, requestOptions, accountEventService);
-        },
-        deps: [XHRBackend, RequestOptions, UserEventsService],
-        multi: false
+      provide: Http,
+      useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, accountEventService: UserEventsService) => {
+        return new HmacHttpClient(xhrBackend, requestOptions, accountEventService);
+      },
+      deps: [XHRBackend, RequestOptions, UserEventsService],
+      multi: false
     }
   ]
 })

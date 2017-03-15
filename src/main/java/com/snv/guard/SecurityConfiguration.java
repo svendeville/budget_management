@@ -2,6 +2,7 @@ package com.snv.guard;
 
 import com.snv.guard.hmac.HmacRequester;
 import com.snv.guard.hmac.HmacSecurityConfigurer;
+import com.snv.user.User;
 import com.snv.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.List;
 
 
 /**
@@ -82,12 +85,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         InMemoryUserDetailsManagerConfigurer configurer = auth
                 .inMemoryAuthentication()
                     .passwordEncoder(passwordEncoder());
-
-        userService.getAll().forEach(user -> 
-            configurer.withUser(user.getLogin())
-                    .password(passwordEncoder().encode(user.getPassword()))
-                    .roles(user.getProfile().name())
-        );
+        List<User> users = userService.getAll();
+        if (users != null && !users.isEmpty()) {
+            users.forEach(user ->
+                    configurer.withUser(user.getLogin())
+                            .password(passwordEncoder().encode(user.getPassword()))
+                            .roles(user.getProfile().name())
+            );
+        }
     }
 
     @Bean

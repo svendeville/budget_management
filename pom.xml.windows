@@ -193,7 +193,7 @@
                             <workingDirectory>${project.basedir}/src/main/resources/public/</workingDirectory>
                             <arguments>
                                 <argument>run</argument>
-                                <argument>build:dev</argument>
+                                <argument>build:prod</argument>
                             </arguments>
                         </configuration>
                         <goals>

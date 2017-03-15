@@ -31,15 +31,15 @@ export class Login {
   public onSubmit():void {
     this.submitted = true;
     if (this.form.valid) {
-        let credential:Credential = new Credential();
-        credential.login = this.login.value;
-        credential.password = this.password.value;
-        this.loginService
-            .post(credential)
-            .subscribe(user => {
-                this.user = user;
-                console.log("Successfully logged", user.firstName + " " + user.lastName);
-              this.router.navigate(["/pages/dashboard"]);
+      let credential: Credential = new Credential();
+      credential.login = this.login.value;
+      credential.password = this.password.value;
+      this.loginService
+        .post(credential)
+        .subscribe(user => {
+          this.user = user;
+          console.log("Successfully logged", user.firstName + " " + user.lastName);
+          this.router.navigate(["/pages/dashboard"]);
         });
     }
   }
