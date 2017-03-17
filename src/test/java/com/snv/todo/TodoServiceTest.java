@@ -42,13 +42,14 @@ public class TodoServiceTest {
     private final TodoService todoService = new TodoServiceImpl();
     
     @Mock
-    private CrudService<Todo> todoCrudService;
+    private CrudService<Todo> crudService;
     
     private Todo todo;
     
     @Before
     public void setUp() {
         this.todo = new Todo();
+        this.todo.setId(1l);
         this.todo.setText("my test todo");
         this.todo.setFinished(true);
         this.todo.setColor("blue");
@@ -56,17 +57,17 @@ public class TodoServiceTest {
     
     @Test
     public void should_return_todo_with_information() {
-        Mockito.when(this.todoCrudService.create(Matchers.any(Todo.class))).thenReturn(this.todo);
+        Mockito.when(this.crudService.create(Matchers.any(Todo.class))).thenReturn(this.todo);
         Todo actual = this.todoService.create(this.todo);
-        verify(this.todoCrudService, Mockito.times(1)).create(Matchers.any(Todo.class));
+        verify(this.crudService, Mockito.times(1)).create(Matchers.any(Todo.class));
         this.match(actual);
     }
     
     @Test
     public void should_return_todo_list_when_call_getAll() {
-        Mockito.when(this.todoCrudService.getAll()).thenReturn(Arrays.asList(this.todo));
+        Mockito.when(this.crudService.getAll()).thenReturn(Arrays.asList(this.todo));
         List<Todo> actual = this.todoService.getAll();
-        verify(this.todoCrudService, Mockito.times(1)).getAll();
+        verify(this.crudService, Mockito.times(1)).getAll();
         assertFalse(actual.isEmpty());
         assertTrue(actual.size() == 1);
         this.match(actual.get(0));
@@ -74,17 +75,17 @@ public class TodoServiceTest {
     
     @Test
     public void should_return_udpated_todo_when_call_put() {
-        Mockito.when(this.todoCrudService.update(Matchers.any(Todo.class))).thenReturn(this.todo);
+        Mockito.when(this.crudService.update(Matchers.any(Todo.class))).thenReturn(this.todo);
         Todo actual = this.todoService.put(this.todo);
-        verify(this.todoCrudService, Mockito.times(1)).update(Matchers.any(Todo.class));
+        verify(this.crudService, Mockito.times(1)).update(Matchers.any(Todo.class));
         this.match(actual);
     }
     
     @Test
     public void should_return_true_when_delete_todo () {
-        Mockito.when(this.todoCrudService.delete(Matchers.any(Todo.class))).thenReturn(Boolean.TRUE);
+        Mockito.when(this.crudService.delete(Matchers.anyInt())).thenReturn(Boolean.TRUE);
         boolean actual = this.todoService.delete(this.todo.getId());
-        verify(this.todoCrudService, Mockito.times(1)).delete(Matchers.any(Todo.class));
+        verify(this.crudService, Mockito.times(1)).delete(Matchers.anyInt());
         assertTrue(actual);
     }
     

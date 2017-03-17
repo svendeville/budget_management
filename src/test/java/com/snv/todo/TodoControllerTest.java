@@ -55,6 +55,7 @@ public class TodoControllerTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(this.todoController)
                 .build();
         this.todo = new Todo();
+        this.todo.setId(1l);
         this.todo.setText("my test todo");
         this.todo.setFinished(true);
         this.todo.setColor("blue");

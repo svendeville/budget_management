@@ -156,7 +156,7 @@
                         <id>exec-npm-conf</id>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <executable>npm.cmd</executable>
+                            <executable>npm</executable>
                             <workingDirectory>${project.basedir}/src/main/resources/public/</workingDirectory>
                             <arguments>
                                 <argument>config</argument>
@@ -174,7 +174,7 @@
                         <id>exec-npm-install</id>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <executable>npm.cmd</executable>
+                            <executable>npm</executable>
                             <workingDirectory>${project.basedir}/src/main/resources/public/</workingDirectory>
                             <arguments>
                                 <argument>install</argument>
@@ -189,7 +189,7 @@
                         <id>exec-npm-build</id>
                         <phase>compile</phase>
                         <configuration>
-                            <executable>npm.cmd</executable>
+                            <executable>npm</executable>
                             <workingDirectory>${project.basedir}/src/main/resources/public/</workingDirectory>
                             <arguments>
                                 <argument>run</argument>
