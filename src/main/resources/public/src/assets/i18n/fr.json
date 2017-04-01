@@ -1,0 +1,53 @@
+{
+  "APP": {
+    "TITLE": "Budget management"
+  },
+  "BTN": {
+    "VALIDATE": "Valider",
+    "CANCEL": "Annuler",
+    "CONNECT": "Connexion"
+  },
+  "MENU": {
+    "DASHBOARD": "Tableau de bord",
+    "BUDGET": "Budget",
+    "BANK.ACCOUNT": "Comptes",
+    "PARAMETER": "Paramètres",
+    "USER": "Utilisateur",
+    "CATEGORIES": "Catégories"
+  },
+  "REGISTERING": {
+    "TITLE": "Créer un nouvel utilisateur",
+    "HAVE.AN.ACCOUNT": "Vous êtes déjà utilisateur ? Connectez-vous !",
+    "FORM": {
+      "LAST.NAME": "Nom",
+      "FIRST.NAME": "Prénom",
+      "MAIL": "Email",
+      "LOGIN": "Identifiant",
+      "PASSWORD": "Mot de passe",
+      "REPEAT": "Répéter",
+      "PASSWORD.NOY.MATCH": "Les mots de passes de correspondent pas !"
+    }
+  },
+  "LOGIN": {
+    "TITLE": "Connexion",
+    "REGISTER": "Pas encore de compte ? Créer le !",
+    "LOGIN": "Identifiant",
+    "PASSWORD": "Mot de passe",
+    "PASSWORD.LOST": "Mot de passe perdu ?"
+  },
+  "DASHBOARD": {
+    "TODO": {
+      "TITLE": "Liste des tâches",
+      "ADDING": "Nouvelle tâche"
+    },
+    "CALENDAR": {
+      "TITLE": "Calendrier",
+      "FORM": {
+        "TITLE": "Nouveau rendez-vous",
+        "EVENT.TITLE": "Titre",
+        "START.DATE": "Début",
+        "END.DATE": "Fin"
+      }
+    }
+  }
+}

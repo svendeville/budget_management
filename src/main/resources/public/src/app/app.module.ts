@@ -1,9 +1,9 @@
-import {NgModule, ApplicationRef} from "@angular/core";
+import {ApplicationRef, NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpModule, XHRBackend, Http, RequestOptions} from "@angular/http";
+import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
 import {RouterModule} from "@angular/router";
-import {removeNgStyles, createNewHosts, createInputTransfer} from "@angularclass/hmr";
+import {createInputTransfer, createNewHosts, removeNgStyles} from "@angularclass/hmr";
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -18,6 +18,7 @@ import {PagesModule} from "./pages/pages.module";
 import {UserEventsService} from "./pages/model/user/user.events.service";
 import {HmacHttpClient} from "./core/hmac-http-client";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {TranslateLoader, TranslateModule, TranslateService, TranslateStaticLoader} from "ng2-translate";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -46,6 +47,11 @@ type StoreType = {
     FormsModule,
     ReactiveFormsModule,
     NgaModule.forRoot(),
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
+      deps: [Http]
+    }),
     PagesModule,
     routing
   ],
@@ -53,6 +59,7 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     UserEventsService,
+    TranslateService,
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     {
       provide: Http,
@@ -62,12 +69,17 @@ type StoreType = {
       deps: [XHRBackend, RequestOptions, UserEventsService],
       multi: false
     }
+  ],
+  exports: [
+    TranslateModule
   ]
 })
 
 export class AppModule {
 
-  constructor(public appRef: ApplicationRef, public appState: AppState) {
+  constructor(public appRef: ApplicationRef, public appState: AppState, private _translate: TranslateService) {
+    _translate.setDefaultLang('fr');
+    _translate.use('fr');
   }
 
   hmrOnInit(store: StoreType) {

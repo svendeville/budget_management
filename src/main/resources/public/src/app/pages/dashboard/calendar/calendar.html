@@ -12,27 +12,30 @@
         <button class="close" aria-label="Close" (click)="calendarForm.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Nouveau rendez-vous</h4>
+        <h4 class="modal-title">{{ 'DASHBOARD.CALENDAR.FORM.TITLE' | translate }}</h4>
       </div>
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="calendarTitle">Titre</label>
+            <label for="calendarTitle">{{ 'DASHBOARD.CALENDAR.FORM.EVENT.TITLE' | translate }}</label>
             <input type="text" class="form-control" id="calendarTitle" placeholder="Titre">
           </div>
           <div class="form-group">
-            <label for="calendarStart">Début</label>
-            <input type="datetime" class="form-control" id="calendarStart" placeholder="Début">
+            <label for="calendarStart">{{ 'DASHBOARD.CALENDAR.FORM.START.DATE' | translate }}</label>
+            <input type="datetime" class="form-control" id="calendarStart"
+                   placeholder="{{ ('DASHBOARD.CALENDAR.FORM.START.DATE' | translate) }}">
           </div>
           <div class="form-group">
-            <label for="calendarFin">Fin</label>
-            <input type="datetime" class="form-control" id="calendarFin" placeholder="Fin">
+            <label for="calendarFin">{{ 'DASHBOARD.CALENDAR.FORM.END.DATE' | translate }}</label>
+            <input type="datetime" class="form-control" id="calendarFin"
+                   placeholder="{{ ('DASHBOARD.CALENDAR.FORM.END.DATE' | translate) }}">
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary confirm-btn" (click)="addCalendarEvent()">Valider</button>
-        <button class="btn btn-danger confirm-btn" (click)="addCalendarEvent()">Annuler</button>
+        <button class="btn btn-primary confirm-btn" (click)="addCalendarEvent()">{{ 'BTN.VALIDATE' | translate }}
+        </button>
+        <button class="btn btn-danger confirm-btn" (click)="addCalendarEvent()">{{ 'BTN.CANCEL' | translate }}</button>
       </div>
     </div>
   </div>
