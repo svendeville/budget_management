@@ -1,24 +1,22 @@
-import { Routes, RouterModule }  from '@angular/router';
-import { Pages } from './pages.component';
+import {RouterModule, Routes} from "@angular/router";
+import {Pages} from "./pages.component";
+import {ModuleWithProviders} from "@angular/core";
 // noinspection TypeScriptValidateTypes
-const routes: Routes = [
-  {
-    path: 'login',
-    loadChildren: () => System.import('./login/login.module')
-  },
-  {
-    path: 'register',
-    loadChildren: () => System.import('./register/register.module')
-  },
+
+// export function loadChildren(path) { return System.import(path); };
+
+export const routes: Routes = [
   {
     path: 'pages',
     component: Pages,
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'dashboard', loadChildren: () => System.import('./dashboard/dashboard.module') },
-      { path: 'ui', loadChildren: () => System.import('./ui/ui.module') }
+      {path: 'login', loadChildren: './login/login.module#LoginModule'},
+      {path: 'register', loadChildren: './register/register.module#RegisterModule'},
+      {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule'},
+      {path: 'ui', loadChildren: './ui/ui.module#UiModule'}
     ]
   }
 ];
 
-export const routing = RouterModule.forChild(routes);
+export const routing: ModuleWithProviders = RouterModule.forChild(routes);

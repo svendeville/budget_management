@@ -1,8 +1,11 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component} from "@angular/core";
+import {Routes} from "@angular/router";
+
+import {BaMenuService} from "../theme";
+import {PAGES_MENU} from "./pages.menu";
+
 @Component({
   selector: 'pages',
-  encapsulation: ViewEncapsulation.None,
-  styles: [],
   template: `
     <ba-sidebar></ba-sidebar>
     <ba-page-top></ba-page-top>
@@ -13,9 +16,12 @@ import {Component, ViewEncapsulation} from '@angular/core';
       </div>
     </div>
     <footer class="al-footer clearfix">
-      <div class="al-footer-right">Created with <a href="https://github.com/akveo/ng2-admin">ng2-admin</a><i class="ion-heart"></i></div>
+      <div class="al-footer-right" translate>{{'general.created_with'}} <a href="https://github.com/akveo/ng2-admin">ng2-admin</a><i
+        class="ion-heart"></i></div>
       <div class="al-footer-main clearfix">
-        <div class="al-copy">&copy; <a href="https://github.com/svendeville/budget_management">Sylvain Vendeville</a> 2016</div>
+        <div class="al-copy">&copy; <a href="https://github.com/svendeville/budget_management" translate>{{'general.owner'}}</a>
+          2016-2017
+        </div>
       </div>
     </footer>
     <ba-back-top position="200"></ba-back-top>
@@ -23,9 +29,10 @@ import {Component, ViewEncapsulation} from '@angular/core';
 })
 export class Pages {
 
-  constructor() {
+  constructor(private _menuService: BaMenuService,) {
   }
 
   ngOnInit() {
+    this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU);
   }
 }

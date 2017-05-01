@@ -1,12 +1,12 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
-import {BaMsgCenterService} from './baMsgCenter.service';
+import {BaMsgCenterService} from "./baMsgCenter.service";
 
 @Component({
   selector: 'ba-msg-center',
   providers: [BaMsgCenterService],
-  styles: [require('./baMsgCenter.scss')],
-  template: require('./baMsgCenter.html')
+  styleUrls: ['./baMsgCenter.scss'],
+  templateUrl: './baMsgCenter.html'
 })
 export class BaMsgCenter {
 

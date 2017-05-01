@@ -15,25 +15,24 @@
  * along with MesComptes. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import {Component, ViewEncapsulation, ViewChild} from "@angular/core";
+import {Component, ElementRef, ViewChild} from "@angular/core";
 import {CalendarService} from "./calendar.service";
-import {ModalDirective} from "ng2-bootstrap";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'calendar',
-  encapsulation: ViewEncapsulation.None,
-  styles: [require('./calendar.scss')],
-  template: require('./calendar.html')
+  styleUrls: ['./calendar.scss'],
+  templateUrl: './calendar.html'
 })
 export class Calendar {
 
   @ViewChild('calendarForm')
-  calendarForm: ModalDirective;
+  calendarForm: ElementRef;
 
   public calendarConfiguration:any;
   private _calendar:Object;
 
-  constructor(private _calendarService:CalendarService) {
+  constructor(private _calendarService: CalendarService, private modalService: NgbModal) {
     this.calendarConfiguration = this._calendarService.getData();
     this.calendarConfiguration.select = (start, end) => this._onSelect(start, end);
   }
@@ -44,7 +43,7 @@ export class Calendar {
 
   private _onSelect(start, end):void {
     if (this._calendar != null) {
-      this.calendarForm.show();
+      this.modalService.open(this.calendarForm, {})
       /*
       let title = prompt('Event Title:');
       let eventData:any;

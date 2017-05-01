@@ -1,15 +1,13 @@
-import { NgModule, ModuleWithProviders }      from '@angular/core';
-import { CommonModule }  from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import {ModuleWithProviders, NgModule} from "@angular/core";
+import {CommonModule} from "@angular/common";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RouterModule} from "@angular/router";
+import {NgUploaderModule} from "ngx-uploader";
+import {AppTranslationModule} from "../app.translation.module";
 
-import {
-  BaThemeConfig
-} from './theme.config';
+import {BaThemeConfig} from "./theme.config";
 
-import {
-  BaThemeConfigProvider
-} from './theme.configProvider';
+import {BaThemeConfigProvider} from "./theme.configProvider";
 
 import {
   BaAmChart,
@@ -18,40 +16,26 @@ import {
   BaChartistChart,
   BaCheckbox,
   BaContentTop,
+  BaFileUploader,
   BaFullCalendar,
-  BaMenuItem,
   BaMenu,
+  BaMenuItem,
   BaMsgCenter,
   BaMultiCheckbox,
   BaPageTop,
   BaPictureUploader,
   BaSidebar
-} from './components';
+} from "./components";
 
-import { BaCardBlur } from './components/baCard/baCardBlur.directive';
+import {BaCardBlur} from "./components/baCard/baCardBlur.directive";
 
-import {
-  BaScrollPosition,
-  BaSlimScroll,
-  BaThemeRun
-} from './directives';
+import {BaScrollPosition, BaSlimScroll, BaThemeRun} from "./directives";
 
-import {
-  BaAppPicturePipe,
-  BaKameleonPicturePipe,
-  BaProfilePicturePipe
-} from './pipes';
+import {BaAppPicturePipe, BaKameleonPicturePipe, BaProfilePicturePipe} from "./pipes";
 
-import {
-  BaImageLoaderService,
-  BaThemePreloader,
-  BaThemeSpinner
-} from './services';
+import {BaImageLoaderService, BaMenuService, BaThemePreloader, BaThemeSpinner} from "./services";
 
-import {
-  EmailValidator,
-  EqualPasswordsValidator
-} from './validators';
+import {EmailValidator, EqualPasswordsValidator} from "./validators";
 
 const NGA_COMPONENTS = [
   BaAmChart,
@@ -67,7 +51,8 @@ const NGA_COMPONENTS = [
   BaMultiCheckbox,
   BaPageTop,
   BaPictureUploader,
-  BaSidebar
+  BaSidebar,
+  BaFileUploader
 ];
 
 const NGA_DIRECTIVES = [
@@ -86,7 +71,8 @@ const NGA_PIPES = [
 const NGA_SERVICES = [
   BaImageLoaderService,
   BaThemePreloader,
-  BaThemeSpinner
+  BaThemeSpinner,
+  BaMenuService
 ];
 
 const NGA_VALIDATORS = [
@@ -105,6 +91,8 @@ const NGA_VALIDATORS = [
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    AppTranslationModule,
+    NgUploaderModule
   ],
   exports: [
     ...NGA_PIPES,

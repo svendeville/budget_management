@@ -1,52 +1,83 @@
 {
-  "APP": {
-    "TITLE": "Budget management"
+  "btn": {
+    "connect": "Connexion",
+    "save": "Enregistrer",
+    "validate": "Valider",
+    "cancel": "Annuler"
   },
-  "BTN": {
-    "VALIDATE": "Valider",
-    "CANCEL": "Annuler",
-    "CONNECT": "Connexion"
+  "login": {
+    "title": "Connecte vous sur BudgetManagment",
+    "signup_link": "Pas encore de compte ? Créez le!",
+    "email": "Email",
+    "password": "Password",
+    "sign_in": "Connexion",
+    "forgot_password": "Mot de passe perdu ?"
   },
-  "MENU": {
-    "DASHBOARD": "Tableau de bord",
-    "BUDGET": "Budget",
-    "BANK.ACCOUNT": "Comptes",
-    "PARAMETER": "Paramètres",
-    "USER": "Utilisateur",
-    "CATEGORIES": "Catégories"
+  "register": {
+    "title": "Création de compte utilisateur",
+    "have_account": "Déjà enregistré ? Connectez vous.",
+    "name": "Nom",
+    "first_name": "Prénom",
+    "email": "Email",
+    "email_placeholder": "Email (Pour le login)",
+    "password": "Mot de passe",
+    "repeat": "Répéter",
+    "register.password_not_match": ""
   },
-  "REGISTERING": {
-    "TITLE": "Créer un nouvel utilisateur",
-    "HAVE.AN.ACCOUNT": "Vous êtes déjà utilisateur ? Connectez-vous !",
-    "FORM": {
-      "LAST.NAME": "Nom",
-      "FIRST.NAME": "Prénom",
-      "MAIL": "Email",
-      "LOGIN": "Identifiant",
-      "PASSWORD": "Mot de passe",
-      "REPEAT": "Répéter",
-      "PASSWORD.NOY.MATCH": "Les mots de passes de correspondent pas !"
-    }
-  },
-  "LOGIN": {
-    "TITLE": "Connexion",
-    "REGISTER": "Pas encore de compte ? Créer le !",
-    "LOGIN": "Identifiant",
-    "PASSWORD": "Mot de passe",
-    "PASSWORD.LOST": "Mot de passe perdu ?"
-  },
-  "DASHBOARD": {
-    "TODO": {
-      "TITLE": "Liste des tâches",
-      "ADDING": "Nouvelle tâche"
+  "general": {
+    "owner": "Sylvain Vendeville",
+    "home": "Home",
+    "forms": {
+      "option1": "Option 1"
     },
-    "CALENDAR": {
-      "TITLE": "Calendrier",
-      "FORM": {
-        "TITLE": "Nouveau rendez-vous",
-        "EVENT.TITLE": "Titre",
-        "START.DATE": "Début",
-        "END.DATE": "Fin"
+    "menu": {
+      "dashboard": "Dashboard",
+      "editors": "Editors",
+      "ck_editor": "CKEditor",
+      "components": "Components",
+      "tree_view": "Tree View",
+      "charts": "Charts",
+      "chartist_js": "Chartist.Js",
+      "ui_features": "UI Features",
+      "typography": "Typography",
+      "buttons": "Buttons",
+      "icons": "Icons",
+      "modals": "Modals",
+      "grid": "Grid",
+      "form_elements": "Form Elements",
+      "form_inputs": "Form Inputs",
+      "form_layouts": "Form Layouts",
+      "tables": "Tables",
+      "basic_tables": "Basic Tables",
+      "smart_tables": "Smart Tables",
+      "maps": "Maps",
+      "google_maps": "Google Maps",
+      "leaflet_maps": "Leaflet Maps",
+      "bubble_maps": "Bubble Maps",
+      "line_maps": "Line Maps",
+      "pages": "Pages",
+      "login": "Login",
+      "register": "Register",
+      "menu_level_1": "Menu Level 1",
+      "menu_level_1_1": "Menu Level 1.1",
+      "menu_level_1_2": "Menu Level 1.2",
+      "menu_level_1_2_1": "Menu Level 1.2.1",
+      "external_link": "External Link"
+    },
+    "created_with": "Created with"
+  },
+  "dashboard": {
+    "todo": {
+      "title": "Liste des tâches",
+      "task_todo": "Nouvelle tâche.."
+    },
+    "calendar": {
+      "title": "Calendrier",
+      "form": {
+        "title": "Nouveau rendez-vous",
+        "event_title": "Titre",
+        "start": "Début",
+        "end": "fin"
       }
     }
   }

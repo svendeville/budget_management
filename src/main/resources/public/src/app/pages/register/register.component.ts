@@ -1,15 +1,14 @@
-import {Component, ViewEncapsulation} from '@angular/core';
-import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import {Component} from "@angular/core";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
-import {RegisterService} from './register.service';
-import { User } from "./../model/user/user";
+import {EmailValidator, EqualPasswordsValidator} from "../../theme/validators";
+import {RegisterService} from "./register.service";
+import {User} from "./../model/user/user";
 
 @Component({
   selector: 'register',
-  encapsulation: ViewEncapsulation.None,
-  styles: [require('./register.scss')],
-  template: require('./register.html'),
+  styleUrls: ['./register.scss'],
+  templateUrl: './register.html'
 })
 export class Register {
 
@@ -17,7 +16,6 @@ export class Register {
   public lastName:AbstractControl;
   public firstName:AbstractControl;
   public email:AbstractControl;
-  public login:AbstractControl;
   public password:AbstractControl;
   public repeatPassword:AbstractControl;
   public passwords:FormGroup;
@@ -40,7 +38,6 @@ export class Register {
     this.lastName = this.form.controls['lastName'];
     this.firstName = this.form.controls['firstName'];
     this.email = this.form.controls['email'];
-    this.login = this.form.controls['login'];
     this.passwords = <FormGroup> this.form.controls['passwords'];
     this.password = this.passwords.controls['password'];
     this.repeatPassword = this.passwords.controls['repeatPassword'];
@@ -58,12 +55,12 @@ export class Register {
         });
     }
   }
-  
+
   private populateUser(user:User) : void {
      user.lastName = this.lastName.value;
      user.firstName = this.firstName.value;
      user.email = this.email.value;
-     user.login = this.login.value;
+    user.login = this.email.value;
      user.password = this.password.value;
   }
 }

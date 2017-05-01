@@ -1,23 +1,10 @@
-import {
-    Component,
-    ViewChild,
-    ViewEncapsulation,
-    Input,
-    Output,
-    ElementRef,
-    EventEmitter,
-    OnInit,
-    OnChanges,
-    OnDestroy,
-} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 
-import {Chartist} from './baChartistChart.loader.ts';
+import * as Chartist from "chartist";
 
 @Component({
   selector: 'ba-chartist-chart',
-  encapsulation: ViewEncapsulation.None,
-  styles: [require('chartist/dist/chartist.css'), require('./baChartistChart.scss')],
-  template: require('./baChartistChart.html'),
+  templateUrl: './baChartistChart.html',
   providers: [],
 })
 export class BaChartistChart {
@@ -29,7 +16,7 @@ export class BaChartistChart {
   @Input() baChartistChartClass:string;
   @Output() onChartReady = new EventEmitter<any>();
 
-  @ViewChild('baChartistChart') private _selector:ElementRef;
+  @ViewChild('baChartistChart') public _selector: ElementRef;
 
   private chart;
 
@@ -38,7 +25,7 @@ export class BaChartistChart {
     this.onChartReady.emit(this.chart);
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes) {
     if (this.chart) {
       (<any>this.chart).update(this.baChartistChartData, this.baChartistChartOptions);
     }

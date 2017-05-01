@@ -5,18 +5,20 @@ import {NgaModule} from "../../theme/nga.module";
 import {BaThemeConfigProvider} from "../../theme";
 import {Dashboard} from "./dashboard.component";
 import {routing} from "./dashboard.routing";
-import {TodoService, TodoComponent} from "./todo";
+import {TodoComponent, TodoService} from "./todo";
 import {Calendar} from "./calendar";
 import {CalendarService} from "./calendar/calendar.service";
 import {Modals} from "../ui/components/modals/modals.component";
-import {ModalModule} from "ng2-bootstrap";
+import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
+import {AppTranslationModule} from "../../app.translation.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    AppTranslationModule,
     NgaModule,
-    ModalModule,
+    NgbModalModule,
     routing
   ],
   declarations: [
@@ -31,4 +33,5 @@ import {ModalModule} from "ng2-bootstrap";
     BaThemeConfigProvider
   ]
 })
-export default class DashboardModule {}
+export class DashboardModule {
+}
