@@ -13,8 +13,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       {path: 'login', loadChildren: './login/login.module#LoginModule'},
       {path: 'register', loadChildren: './register/register.module#RegisterModule'},
-      {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule'},
-      {path: 'ui', loadChildren: './ui/ui.module#UiModule'}
+      {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule'}
     ]
   }
 ];

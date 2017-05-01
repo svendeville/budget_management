@@ -8,7 +8,6 @@ import {routing} from "./dashboard.routing";
 import {TodoComponent, TodoService} from "./todo";
 import {Calendar} from "./calendar";
 import {CalendarService} from "./calendar/calendar.service";
-import {Modals} from "../ui/components/modals/modals.component";
 import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 import {AppTranslationModule} from "../../app.translation.module";
 
@@ -24,7 +23,6 @@ import {AppTranslationModule} from "../../app.translation.module";
   declarations: [
     TodoComponent,
     Calendar,
-    Modals,
     Dashboard
   ],
   providers: [
