@@ -17,50 +17,38 @@
  */
 import {Injectable} from "@angular/core";
 import {BaThemeConfigProvider} from "../../../theme";
+import {Http} from "@angular/http";
+import {Observable} from "rxjs/Observable";
+import {CalendarEvent} from "../../model/calendar/calendar";
+import * as AppConst from "./../../../core/app.const";
+import {SerializationHelper} from "../../../helper/serialization-helper";
+import {environment} from "../../../../environments/environment";
 
 @Injectable()
 export class CalendarService {
 
-  constructor(private _baConfig:BaThemeConfigProvider) {
+  private _events: CalendarEvent[] = [];
+
+  constructor(private _baConfig: BaThemeConfigProvider, private _http: Http) {
   }
 
-  getData() {
+  public getCalendarEvents(): Observable<CalendarEvent[]> {
+    return this._http.get(AppConst.BACKEND_API_ROOT_URL + '/calendars')
+      .map(res => res.json())
+      .map(responses => {
+        this._events = [];
+        responses.forEach(jsonEvent => this._events.push(SerializationHelper.toInstanceFromJsonObj(new CalendarEvent(), jsonEvent)));
+        return this._events;
+      });
+  }
 
-    let dashboardColors = this._baConfig.get().colors.dashboard;
-    return {
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay'
-      },
-      defaultDate: Date.now(),
-      selectable: true,
-      selectHelper: true,
-      editable: true,
-      eventLimit: true,
-      events: [
-        {
-          title: 'All Day Event',
-          start: '2016-03-01',
-          color: dashboardColors.silverTree
-        },
-        {
-          title: 'Long Event',
-          start: '2016-03-07',
-          end: '2016-03-10',
-          color: dashboardColors.blueStone
-        },
-        {
-          title: 'Dinner',
-          start: '2016-03-14T20:00:00',
-          color: dashboardColors.surfieGreen
-        },
-        {
-          title: 'Birthday Party',
-          start: '2016-04-01T07:00:00',
-          color: dashboardColors.gossip
-        }
-      ]
-    };
+  public post(event: CalendarEvent): Observable<CalendarEvent> {
+    return this._http.post(AppConst.BACKEND_API_ROOT_URL + '/calendars', JSON.stringify(event), environment.PROPERTIES["HOST_OPTIONS"])
+      .map(resp => SerializationHelper.toInstanceFromJsonObj(new CalendarEvent(), resp.json()));
+  }
+
+  public put(event: CalendarEvent): Observable<CalendarEvent> {
+    return this._http.put(AppConst.BACKEND_API_ROOT_URL + '/calendars', JSON.stringify(event), environment.PROPERTIES["HOST_OPTIONS"])
+      .map(resp => SerializationHelper.toInstanceFromJsonObj(new CalendarEvent(), resp.json()));
   }
 }

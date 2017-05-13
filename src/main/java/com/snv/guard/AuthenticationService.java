@@ -12,9 +12,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Authentication service
@@ -65,30 +66,24 @@ public class AuthenticationService {
         //Generate a random secret
         String privateSecret = HmacSigner.generateSecret();
         String publicSecret = HmacSigner.generateSecret();
-        
-        user.setPrivateSecret(privateSecret);
-        user.setPublicSecret(publicSecret);
-        
-        userService.put(user);
 
         // Jwt is generated using the private key
         HmacToken hmacToken = HmacSigner.getSignedToken(privateSecret,String.valueOf(user.getId()), HmacSecurityFilter.JWT_TTL,customClaims);
-
-        // Add jwt cookie
-        Cookie jwtCookie = new Cookie(JWT_APP_COOKIE,hmacToken.getJwt());
-        jwtCookie.setSecure(false);
-        jwtCookie.setPath("/");
-        jwtCookie.setMaxAge(20*60);
-        //Cookie cannot be accessed via JavaScript
-        jwtCookie.setHttpOnly(true);
 
         // Set public secret and encoding in headers
         response.setHeader(HmacUtils.X_SECRET, publicSecret);
         response.setHeader(HttpHeaders.WWW_AUTHENTICATE, HmacUtils.HMAC_SHA_256);
         response.setHeader(CSRF_CLAIM_HEADER, csrfId);
+        response.setHeader(JWT_APP_COOKIE, hmacToken.getJwt());
 
         //Set JWT as a cookie
-        response.addCookie(jwtCookie);
+
+        user.setPrivateSecret(privateSecret);
+        user.setPublicSecret(publicSecret);
+        user.setCsrfId(csrfId);
+        user.setJwt(hmacToken.getJwt());
+
+        userService.put(user);
 
         return user;
     }

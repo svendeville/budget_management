@@ -20,6 +20,7 @@ export class TodoService {
     return this._http.get(AppConst.BACKEND_API_ROOT_URL + "/todos")
       .map(resp => <Object[]>resp.json())
       .map(jsonTodos => {
+        this._todoList = [];
         jsonTodos.forEach(jsonTodo => that._todoList.push(SerializationHelper.toInstanceFromJsonObj(new Todo(), jsonTodo)));
         return that._todoList;
       });

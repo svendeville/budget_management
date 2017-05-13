@@ -67,10 +67,7 @@ public class XAuthTokenFilter extends GenericFilterBean {
 
             try {
 
-                Cookie jwtCookie = findJwtCookie(request);
-                Assert.notNull(jwtCookie,"No jwt cookie found");
-
-                String jwt = jwtCookie.getValue();
+                String jwt = ((HttpServletRequest) servletRequest).getHeader(AuthenticationService.JWT_APP_COOKIE);
                 String login = HmacSigner.getJwtClaim(jwt, AuthenticationService.JWT_CLAIM_LOGIN);
                 Assert.notNull(login,"No login found in JWT");
 

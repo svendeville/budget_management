@@ -15,7 +15,7 @@
  * along with MesComptes. If not, see <http://www.gnu.org/licenses/>.
  */
 import {Injectable} from "@angular/core";
-import {Http, Response, RequestOptionsArgs, Headers, RequestOptions, ConnectionBackend} from "@angular/http";
+import {ConnectionBackend, Headers, Http, RequestOptions, RequestOptionsArgs, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {SecurityToken} from "./securityToken";
 import * as AppConst from "./app.const";
@@ -45,6 +45,8 @@ export class HmacHttpClient extends Http {
       let securityToken: SecurityToken = new SecurityToken(JSON.parse(localStorage.getItem(AppConst.STORAGE_SECURITY_TOKEN)));
       let date: string = new Date().toISOString();
       let secret: string = securityToken.publicSecret;
+      options.headers.set("Content-Type", "application/json;charset=UTF-8");
+      options.headers.set("Access-Control-Allow-Origin", "*");
 
       let message = '';
       if (method === 'PUT' || method === 'POST' || method === 'PATCH' || method === 'DELETE') {
@@ -53,6 +55,7 @@ export class HmacHttpClient extends Http {
         message = method + url + date;
       }
       options.headers.set(AppConst.CSRF_CLAIM_HEADER, localStorage.getItem(AppConst.CSRF_CLAIM_HEADER));
+      options.headers.set(AppConst.STORAGE_SECURITY_JWT, localStorage.getItem(AppConst.STORAGE_SECURITY_JWT));
 
       if (securityToken.isEncoding('HmacSHA256')) {
         options.headers.set(AppConst.HEADER_X_DIGEST, CryptoJS.HmacSHA256(message, secret).toString());

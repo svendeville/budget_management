@@ -1,0 +1,58 @@
+<!--
+  ~ @Copyright 2016 Sylvain Vendeville.
+  ~ This file is part of Budget Managment.
+  ~ Budget Managment is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Budget Managment is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with MesComptes. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<div class="modal-content" #calendarForm>
+  <div class="modal-header">
+    <h4 class="modal-title" translate>{{ 'dashboard.calendar.form.title' }}</h4>
+    <button class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label for="calendarTitle" translate>{{ 'dashboard.calendar.form.event_title'}}</label>
+        <input type="text" class="form-control" [formControl]="calendarTitle" id="calendarTitle"
+               placeholder="{{ ('dashboard.calendar.form.event_title' | translate) }}">
+      </div>
+      <div class="form-group">
+        <label for="calendarStart" translate>{{ 'dashboard.calendar.form.start'}}</label>
+        <input type="datetime" [formControl]="calendarStart" class="form-control" id="calendarStart"
+               placeholder="{{ ('dashboard.calendar.form.start' | translate) }}">
+      </div>
+      <div class="form-group">
+        <label for="calendarEnd" translate>{{ 'dashboard.calendar.form.end' }}</label>
+        <input type="datetime" [formControl]="calendarEnd" class="form-control" id="calendarEnd"
+               placeholder="{{ ('dashboard.calendar.form.end' | translate) }}">
+      </div>
+      <div class="form-group">
+        <label for="calendarEnd" translate>{{ 'dashboard.calendar.form.color' }}</label>
+        <select [formControl]="calendarColor" class="form-control" id="calendarColor">
+          <option *ngFor="let color of colors" value="{{ (color.value) }}"
+                  style="background-color: {{ (color.value) }}">{{color.name}}
+          </option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary confirm-btn" (click)="_addCalendarEvent(false)" translate>{{ 'btn.validate' }}
+    </button>
+    <button class="btn btn-danger confirm-btn" (click)="_addCalendarEvent(true)" translate>{{ 'btn.cancel' }}
+    </button>
+  </div>
+</div>

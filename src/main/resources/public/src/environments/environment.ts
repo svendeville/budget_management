@@ -6,10 +6,11 @@ import {Headers, RequestOptionsArgs} from "@angular/http";
 let reqOptions: RequestOptionsArgs = {};
 reqOptions.headers = new Headers();
 reqOptions.headers.set("Content-Type", "application/json;charset=UTF-8");
+reqOptions.headers.set("Access-Control-Allow-Origin", "*");
 export const environment = {
   production: false,
   PROPERTIES: {
-    HOST_SERVICES: "http://localhost:8080/api",
+    HOST_SERVICES: "http://localhost:8000",
     HOST_OPTIONS: reqOptions
   }
 };

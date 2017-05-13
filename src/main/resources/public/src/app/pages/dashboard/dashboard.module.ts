@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgaModule} from "../../theme/nga.module";
 import {BaThemeConfigProvider} from "../../theme";
 import {Dashboard} from "./dashboard.component";
@@ -10,12 +10,14 @@ import {Calendar} from "./calendar";
 import {CalendarService} from "./calendar/calendar.service";
 import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 import {AppTranslationModule} from "../../app.translation.module";
+import {CalendarFormModalComponent} from "./calendar/component/calendar-form-modal.component";
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     AppTranslationModule,
+    ReactiveFormsModule,
+    FormsModule,
     NgaModule,
     NgbModalModule,
     routing
@@ -23,7 +25,11 @@ import {AppTranslationModule} from "../../app.translation.module";
   declarations: [
     TodoComponent,
     Calendar,
-    Dashboard
+    Dashboard,
+    CalendarFormModalComponent
+  ],
+  entryComponents: [
+    CalendarFormModalComponent
   ],
   providers: [
     CalendarService,

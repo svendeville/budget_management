@@ -32,18 +32,19 @@ export class LoginService {
   public post(credential: Credential): Observable<User> {
     return this.http.post(AppConst.BACKEND_API_ROOT_URL + "/users/login", JSON.stringify(credential), environment.PROPERTIES["HOST_OPTIONS"])
       .map(res => {
+        let user: User = new User(res.json());
         let securityToken: SecurityToken = new SecurityToken(
           {
-            publicSecret: res.headers.get(AppConst.HEADER_X_SECRET),
-            securityLevel: res.headers.get(AppConst.HEADER_WWW_AUTHENTICATE)
+            publicSecret: res.headers.get(AppConst.HEADER_X_SECRET) ? res.headers.get(AppConst.HEADER_X_SECRET) : user.publicSecret,
+            securityLevel: 'HmacSHA256'
           }
         );
 
-        localStorage.setItem(AppConst.CSRF_CLAIM_HEADER, res.headers.get(AppConst.CSRF_CLAIM_HEADER));
+        localStorage.setItem(AppConst.CSRF_CLAIM_HEADER, res.headers.get(AppConst.CSRF_CLAIM_HEADER) ? res.headers.get(AppConst.CSRF_CLAIM_HEADER) : user.csrfId);
         localStorage.setItem(AppConst.STORAGE_ACCOUNT_TOKEN, res.text());
         localStorage.setItem(AppConst.STORAGE_SECURITY_TOKEN, JSON.stringify(securityToken));
+        localStorage.setItem(AppConst.STORAGE_SECURITY_JWT, res.headers.get(AppConst.STORAGE_SECURITY_JWT) ? res.headers.get(AppConst.STORAGE_SECURITY_JWT) : user.jwt);
 
-        let user: User = new User(res.json());
         this.sendLoginSuccess(user);
         return user;
       });

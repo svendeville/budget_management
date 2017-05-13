@@ -1,17 +1,17 @@
 {
-  "name": "ng2-admin",
-  "version": "1.0.0",
-  "description": "Angular and Bootstrap 4 Admin Template.",
-  "author": "Akveo <contact@akveo.com>",
-  "homepage": "http://akveo.github.io/ng2-admin/",
+  "name": "BudgetManagment",
+  "version": "3.0.0",
+  "description": "Personnal budget managment, based on Akveo Ng2-admin.",
+  "author": "Sylvain Vendeville <svendeville1@gmail.com>",
+  "homepage": "https://github.com/svendeville/budget_management/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/akveo/ng2-admin.git"
+    "url": "https://github.com/svendeville/budget_management.git"
   },
   "bugs": {
-    "url": "https://github.com/akveo/ng2-admin/issues"
+    "url": "https://github.com/svendeville/budget_management/issues"
   },
-  "license": "MIT",
+  "license": "GNUGPL",
   "scripts": {
     "ng": "ng",
     "rimraf": "rimraf",
@@ -54,6 +54,7 @@
     "@ngx-translate/http-loader": "0.0.3",
     "amcharts3": "github:amcharts/amcharts3",
     "ammap3": "github:amcharts/ammap3",
+    "angular2-contextmenu": "^0.8.2",
     "animate.css": "3.5.2",
     "bootstrap": "4.0.0-alpha.6",
     "chart.js": "1.1.1",

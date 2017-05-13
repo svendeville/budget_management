@@ -66,10 +66,7 @@ public class HmacSecurityFilter extends GenericFilterBean {
                 filterChain.doFilter(wrappedRequest, response);
             } else {
                 //Get Authentication header
-                Cookie jwtCookie = findJwtCookie(request);
-                Assert.notNull(jwtCookie,"No jwt cookie found");
-
-                String jwt = jwtCookie.getValue();
+                String jwt = ((HttpServletRequest) servletRequest).getHeader(AuthenticationService.JWT_APP_COOKIE);
 
                 if (jwt == null || jwt.isEmpty()) {
                     throw new HmacException("The JWT is missing from the '" + HmacUtils.AUTHENTICATION + "' header");

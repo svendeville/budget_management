@@ -9,6 +9,9 @@ export class User {
   profile: string;
   authorities: Array<string>;
   authenticated = true;
+  publicSecret: string;
+  jwt: string;
+  csrfId: string;
 
   constructor(user?: {
     id: number, lastName: string, firstName: string, email: string,

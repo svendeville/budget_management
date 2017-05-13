@@ -1,37 +1,4 @@
 <ba-full-calendar [baFullCalendarConfiguration]="calendarConfiguration"
-                  baFullCalendarClass="blurCalendar"
+                  baFullCalendarClass="blurCalendar" (eventClick)="onContextMenu($event)"
                   (onCalendarReady)="onCalendarReady($event)">
 </ba-full-calendar>
-
-
-<div class="modal-content" #calendarForm>
-  <div class="modal-header">
-    <button class="close" aria-label="Close" (click)="calendarForm.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <h4 class="modal-title" translate>{{ 'dashboard.calendar.form.title' }}</h4>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="calendarTitle" translate>{{ 'dashboard.calendar.form.event_title'}}</label>
-        <input type="text" class="form-control" id="calendarTitle" placeholder="Titre">
-      </div>
-      <div class="form-group">
-        <label for="calendarStart" translate>{{ 'dashboard.calendar.form.start'}}</label>
-        <input type="datetime" class="form-control" id="calendarStart"
-               placeholder="{{ ('dashboard.calendar.form.start' | translate) }}">
-      </div>
-      <div class="form-group">
-        <label for="calendarFin" translate>{{ 'dashboard.calendar.form.end' }}</label>
-        <input type="datetime" class="form-control" id="calendarFin"
-               placeholder="{{ ('dashboard.calendar.form.end' | translate) }}">
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-primary confirm-btn" (click)="addCalendarEvent()" translate>{{ 'btn.validate' }}
-    </button>
-    <button class="btn btn-danger confirm-btn" (click)="addCalendarEvent()" translate>{{ 'btn.cancel' }}</button>
-  </div>
-</div>
