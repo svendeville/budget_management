@@ -69,7 +69,7 @@ export class CalendarFormModalComponent {
     this.activeModal.close();
   }
 
-  private _addCalendarEvent(isCanceled: boolean): void {
+  public addCalendarEvent(isCanceled: boolean): void {
     this.closeModal();
     if (isCanceled) {
       this._state.notifyDataChanged('addCalendarEvent', null);

@@ -17,7 +17,7 @@ import {PagesModule} from "./pages/pages.module";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {UserEventsService} from "./pages/model/user/user.events.service";
 import {HmacHttpClient} from "./core/hmac-http-client";
-import {ContextMenuComponent, ContextMenuService} from "angular2-contextmenu";
+import {ContextMenuModule, ContextMenuService} from "angular2-contextmenu";
 
 
 // Application wide providers
@@ -42,7 +42,7 @@ export function httpFactory(xhrBackend: XHRBackend, requestOptions: RequestOptio
 @NgModule({
   bootstrap: [App],
   declarations: [
-    App, ContextMenuComponent
+    App
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -53,7 +53,8 @@ export function httpFactory(xhrBackend: XHRBackend, requestOptions: RequestOptio
     NgaModule.forRoot(),
     NgbModule.forRoot(),
     PagesModule,
-    routing
+    routing,
+    ContextMenuModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     APP_PROVIDERS,

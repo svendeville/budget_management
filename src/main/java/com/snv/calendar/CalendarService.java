@@ -19,7 +19,7 @@ package com.snv.calendar;
 import java.util.List;
 
 /**
- * Created by sylvain on 09/01/17.
+ * Service interface to manage Calendar events.
  */
 public interface CalendarService {
 

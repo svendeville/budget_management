@@ -17,7 +17,9 @@
 package com.snv.calendar;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -36,16 +38,22 @@ public class Calendar implements Serializable {
     /**
      * title of event
      */
+    @NotNull
+    @NotBlank
     private String title;
 
     /**
      * event start date or dateTime
      */
+    @NotNull
+    @NotBlank
     private String start;
 
     /**
      * event end date or dateTime
      */
+    @NotNull
+    @NotBlank
     private String end;
 
     /**
