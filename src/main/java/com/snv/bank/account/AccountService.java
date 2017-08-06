@@ -19,6 +19,8 @@ package com.snv.bank.account;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Service Interface to manage the user bank account.
  */
@@ -31,7 +33,7 @@ public interface AccountService {
      * @param account the user bank account to create
      * @return the same user bank account with an identifier
      */
-    Account post(final Account account);
+    Account create(final Account account);
 
     /**
      * Get user bank account by identifier
@@ -46,7 +48,7 @@ public interface AccountService {
      *
      * @return the list of user bank account, empty List otherwise
      */
-    Account getAll();
+    List<Account> getAll();
 
     /**
      * Update user bank account

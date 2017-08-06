@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 /**
  * Rest Crud Interface that manages Bank account request. Its main function is to catch request, convert data
  * into functional one and delegate to service the tasks to perform operations upon BankAccountController.
@@ -92,7 +94,7 @@ public interface Accounts {
     })
     @RequestMapping(method = RequestMethod.GET
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    Account getAll();
+    List<Account> getAll();
 
     /**
      * Update user bank account PUT endPoint

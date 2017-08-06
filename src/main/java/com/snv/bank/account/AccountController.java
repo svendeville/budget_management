@@ -21,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Rest Crud implementation that manages calendars request. Its main function is to catch request, convert data
  * into functional one and delegate to service the tasks to perform operations upon calendarController.
@@ -42,7 +44,7 @@ public class AccountController implements Accounts {
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
     public Account post(@RequestBody(required = true) final Account account) {
-        return accountService.post(account);
+        return accountService.create(account);
     }
 
     /**
@@ -61,7 +63,7 @@ public class AccountController implements Accounts {
     @RequestMapping(method = RequestMethod.GET
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public Account getAll() {
+    public List<Account> getAll() {
         return accountService.getAll();
     }
 

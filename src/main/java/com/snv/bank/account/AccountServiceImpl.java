@@ -17,17 +17,26 @@
 
 package com.snv.bank.account;
 
+import com.snv.common.CrudService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 /**
  * Service implementation to manage the user bank account.
  */
+@Service
 public class AccountServiceImpl implements AccountService {
 
+    @Autowired
+    private CrudService<Account> crudService;
     /**
      * {@inheritDoc}
      */
     @Override
-    public Account post(Account account) {
-        return null;
+    public Account create(Account account) {
+        return crudService.create(account);
     }
 
     /**
@@ -35,15 +44,15 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public Account get(Long accountId) {
-        return null;
+        return crudService.get(accountId);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Account getAll() {
-        return null;
+    public List<Account> getAll() {
+        return crudService.getAll();
     }
 
     /**
@@ -51,7 +60,7 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public Account put(Account account) {
-        return null;
+        return crudService.update(account);
     }
 
     /**
@@ -59,6 +68,6 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public boolean delete(Long accountId) {
-        return false;
+        return crudService.delete(accountId);
     }
 }
