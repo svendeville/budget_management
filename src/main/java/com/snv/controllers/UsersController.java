@@ -16,9 +16,11 @@
  */
 package com.snv.controllers;
 
+import com.snv.BudgetManagementApplication;
 import com.snv.entity.Credential;
 import com.snv.entity.User;
 import com.snv.services.UserService;
+import com.snv.stage.ApplicationEvent;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -45,6 +47,9 @@ public class UsersController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BudgetManagementApplication mainApplication;
 
     @FXML
     private TextField login;
@@ -104,5 +109,11 @@ public class UsersController {
         //this.authenticationService.logout();
         this.user = new User();
     }
-    
+
+    public void cancel(ActionEvent actionEvent) {
+        Event.fireEvent(actionEvent.getTarget(),
+                new ApplicationEvent(BudgetManagementApplication.getApplication(),
+                        actionEvent.getTarget(),
+                        ApplicationEvent.APPLICATION_EXIT));
+    }
 }

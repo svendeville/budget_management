@@ -17,6 +17,8 @@
  */
 package com.snv;
 
+import com.snv.stage.Application;
+import com.snv.stage.ApplicationEvent;
 import com.snv.view.MainView;
 import com.snv.view.Splash;
 import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
@@ -29,10 +31,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.event.EventListener;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -45,18 +46,19 @@ public class BudgetManagementApplication extends AbstractJavaFxApplicationSuppor
 
     private ResourceBundle bundle = ResourceBundle.getBundle("i18n.main.main");
 
+    private static final Application application = new Application();
+
     public static void main(final String[] args) throws Exception {
         launch(BudgetManagementApplication.class, MainView.class, new Splash(), args);
+    }
+
+    public static Application getApplication() {
+        return application;
     }
 
     @Bean("mainApplication")
     public BudgetManagementApplication mainApplication() {
         return this;
-    }
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void onApplicationStarted(Object source) {
-        System.out.println("BudgetManagementApplication Started : " + source.toString());
     }
 
     public void confirmExitApplication() {
@@ -89,6 +91,13 @@ public class BudgetManagementApplication extends AbstractJavaFxApplicationSuppor
         }
     }
 
+    @PostConstruct
+    public void setEventListener() {
+        application.addEventHandler(ApplicationEvent.APPLICATION_EXIT, event -> {
+            BudgetManagementApplication.this.confirmExitApplication();
+        });
+    }
+
     public void showIdentification() throws IOException {
         FXMLLoader fXMLLoader = new FXMLLoader();
         fXMLLoader.setResources(ResourceBundle.getBundle("i18n/auth/authentication"));
@@ -101,7 +110,7 @@ public class BudgetManagementApplication extends AbstractJavaFxApplicationSuppor
         stage.show();
 
         stage.setOnCloseRequest((WindowEvent event1) -> {
-
+            this.confirmExitApplication();
         });
     }
 }
