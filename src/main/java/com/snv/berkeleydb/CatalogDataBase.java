@@ -17,33 +17,23 @@
  */
 package com.snv.berkeleydb;
 
-import java.io.File;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.sleepycat.bind.EntryBinding;
 import com.sleepycat.bind.serial.SerialBinding;
 import com.sleepycat.bind.serial.StoredClassCatalog;
 import com.sleepycat.bind.tuple.StringBinding;
-import com.sleepycat.je.Database;
-import com.sleepycat.je.DatabaseConfig;
-import com.sleepycat.je.DatabaseEntry;
-import com.sleepycat.je.DatabaseException;
-import com.sleepycat.je.Environment;
-import com.sleepycat.je.EnvironmentConfig;
-import com.sleepycat.je.LockMode;
-import com.sleepycat.je.OperationStatus;
-import com.sleepycat.je.Transaction;
+import com.sleepycat.je.*;
 import com.sleepycat.je.Transaction.State;
 import com.snv.exceptions.BudgetDataBaseException;
+import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
+
+@Slf4j
 public final class CatalogDataBase {
 
     private static final boolean   CREATE = Boolean.TRUE;
     private static final String    DB_DIR = System.getProperty("user.dir") + "/datas";
     private static CatalogDataBase instance;
-    private static final Log       LOG    = LogFactory.getLog(CatalogDataBase.class);
 
     static {
         File file = new File(DB_DIR);
@@ -79,7 +69,7 @@ public final class CatalogDataBase {
             this.sequenceDb = this.env.openDatabase(txn, "sequences", this.dbConfig);
         } catch (final DatabaseException e) {
             txn.abort();
-            LOG.error("Erreur lors de l'ouverture de la Base de données : catalog", e);
+            log.error("Erreur lors de l'ouverture de la Base de données : catalog", e);
             throw new BudgetDataBaseException(e);
         } finally {
             if (!State.ABORTED.equals(txn.getState())) {

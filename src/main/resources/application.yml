@@ -1,29 +1,6 @@
 spring:
-  main:
-    banner-mode: off
-  application:
-    name: mes-comptes-v3
-  resources.static-locations: classpath:/META-INF/resources/,classpath:/BOOT-INF/classes/public/dist/,classpath:/public/dist/,classpath:/public/src/,classpath:/resources/,classpath:/resources/public/src/,classpath:/static/
-  jackson:
-      date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
-
-server:
-  port: 8080
-  compression.enabled: true
-  compression.min-response-size: 1
-  use-forward-headers: true
-  undertow:
-    io-threads: 10
-    worker-threads: 10
-    ioThreads: 10
-    workerThreads: 10
-endpoints:
-  health:
-    sensitive: false
-  restart:
-    enabled: true
-  shutdown:
-    enabled: true
+  jmx:
+    enabled: false
 
 info:
   app:
@@ -31,3 +8,9 @@ info:
     description : '@project.description@'
     version: '@project.version@'
     gitCommitId: '@git.commit.id@'
+
+javafx:
+  stage:
+    resizable: true
+    fullScreen: true
+  title: Budget Managment

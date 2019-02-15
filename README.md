@@ -1,9 +1,7 @@
 # budget_management
 
 [![Build Status](https://travis-ci.org/svendeville/budget_management.svg?branch=master)](https://travis-ci.org/svendeville/budget_management)
-[![npm version](https://badge.fury.io/js/typescript.svg)](https://www.npmjs.com/package/typescript)
-[![NSP Status](https://nodesecurity.io/orgs/svendeville/projects/edf034af-8dfe-4b20-8d0f-0ecd6a1f497c/badge)](https://nodesecurity.io/orgs/svendeville/projects/edf034af-8dfe-4b20-8d0f-0ecd6a1f497c)
 
-Budget-Management is a free Bank account manager including an annual budget inteface.
+Budget-Management is a free Bank account manager including an annual budget interface.
 
-It based on Angular 2 - Spring-boot and Oracle BerkeleyDB.
+It based on Spring-boot-javaFx and Oracle BerkeleyDB.

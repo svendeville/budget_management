@@ -17,19 +17,91 @@
  */
 package com.snv;
 
+import com.snv.view.MainView;
+import com.snv.view.Splash;
+import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.EventListener;
+
+import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
- *
  * @author Sylvain
  */
-@SpringBootApplication(scanBasePackages = {"com.snv"})
-@EnableSwagger2
-public class BudgetManagementApplication {
+@SpringBootApplication
+public class BudgetManagementApplication extends AbstractJavaFxApplicationSupport {
+
+    private ResourceBundle bundle = ResourceBundle.getBundle("i18n.main.main");
 
     public static void main(final String[] args) throws Exception {
-        new SpringApplicationBuilder(BudgetManagementApplication.class).web(true).run(args);
+        launch(BudgetManagementApplication.class, MainView.class, new Splash(), args);
+    }
+
+    @Bean("mainApplication")
+    public BudgetManagementApplication mainApplication() {
+        return this;
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void onApplicationStarted(Object source) {
+        System.out.println("BudgetManagementApplication Started : " + source.toString());
+    }
+
+    public void confirmExitApplication() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(bundle.getString("confirmation"));
+        alert.setHeaderText(bundle.getString("application.exit.confirmation"));
+        alert.getButtonTypes().clear();
+        alert.getButtonTypes().add(ButtonType.YES);
+        alert.getButtonTypes().add(ButtonType.CANCEL);
+        alert.showAndWait().ifPresent(this::exitApplication);
+    }
+
+    public void changeLanguage(String languageId) {
+        this.bundle = ResourceBundle.getBundle("i18n.main.main", Locale.forLanguageTag(languageId));
+    }
+
+    private void exitApplication(ButtonType buttonType) {
+        try {
+            if (buttonType.equals(ButtonType.YES)) {
+                stop();
+                Platform.exit();
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR,
+                    "Oops! An unrecoverable error occurred.\nPlease contact your software vendor." +
+                            "\n\nThe application will stop now.\n\nError: " + e.getMessage(), ButtonType.OK);
+            alert.showAndWait().ifPresent((response) -> {
+                Platform.exit();
+            });
+        }
+    }
+
+    public void showIdentification() throws IOException {
+        FXMLLoader fXMLLoader = new FXMLLoader();
+        fXMLLoader.setResources(ResourceBundle.getBundle("i18n/auth/authentication"));
+        fXMLLoader.setLocation(getClass().getResource("/com/snv/view/auth/authentication.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(fXMLLoader.load());
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(fXMLLoader.getResources().getString("title"));
+        stage.show();
+
+        stage.setOnCloseRequest((WindowEvent event1) -> {
+
+        });
     }
 }

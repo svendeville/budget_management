@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ @Copyright 2016 Sylvain Vendeville.
+  ~ This file is part of Budget Management.
+  ~ Budget Management is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Budget Management is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Budget Management. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            fx:controller="com.snv.controllers.MainController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="%menu.file">
+                    <items>
+                        <MenuItem fx:id="menuItemNew" mnemonicParsing="false" text="%menu.file.new"/>
+                        <MenuItem fx:id="menuItemOpen" mnemonicParsing="false" text="%menu.file.open"/>
+                        <MenuItem fx:id="menuItemSave" mnemonicParsing="false" text="%menu.file.save"/>
+                        <MenuItem fx:id="menuItemSaveAs" mnemonicParsing="false" text="%menu.file.save.as"/>
+                        <MenuItem fx:id="menuItemClose" mnemonicParsing="false" text="%menu.file.close"/>
+                        <MenuItem fx:id="menuItemCloseAlle" mnemonicParsing="false" text="%menu.file.close.all"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem fx:id="menuItemExit" mnemonicParsing="false" onAction="#onExitApplication"
+                                  text="%menu.file.exit"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menu.edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="%menu.edit.delete"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menu.language">
+                    <items>
+                        <MenuItem fx:id="fr" mnemonicParsing="false" text="%menu.language.frensh"
+                                  onAction="#onLanguageChange"/>
+                        <MenuItem fx:id="en" mnemonicParsing="false" text="%menu.language.english"
+                                  onAction="#onLanguageChange"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menu.help">
+                    <items>
+                        <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" text="%menu.help.about"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+</BorderPane>

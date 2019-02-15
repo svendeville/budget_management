@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ @Copyright 2016 Sylvain Vendeville.
+  ~ This file is part of Budget Management.
+  ~ Budget Management is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Budget Management is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Budget Management. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<DialogPane xmlns:fx="http://javafx.com/fxml/1" contentText="%title" prefHeight="200.0" prefWidth="360.0"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="com.snv.controllers.UsersController">
+    <content>
+        <GridPane alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Label text="%identifier"/>
+                <TextField fx:id="login" promptText="%identifier" GridPane.columnIndex="1"/>
+                <Label text="%password" GridPane.rowIndex="1"/>
+                <PasswordField fx:id="password" promptText="%password" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                    <buttons>
+                        <Button defaultButton="true" mnemonicParsing="false" text="%validate" onAction="#login"/>
+                        <Button cancelButton="true" mnemonicParsing="false" text="%cancel"/>
+                    </buttons>
+                </ButtonBar>
+            </children>
+        </GridPane>
+    </content>
+</DialogPane>

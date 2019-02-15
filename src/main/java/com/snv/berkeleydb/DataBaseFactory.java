@@ -17,33 +17,23 @@
  */
 package com.snv.berkeleydb;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.sleepycat.bind.EntryBinding;
 import com.sleepycat.bind.serial.SerialBinding;
 import com.sleepycat.bind.serial.StoredClassCatalog;
 import com.sleepycat.bind.tuple.LongBinding;
-import com.sleepycat.je.Cursor;
-import com.sleepycat.je.Database;
-import com.sleepycat.je.DatabaseConfig;
-import com.sleepycat.je.DatabaseEntry;
-import com.sleepycat.je.DatabaseException;
-import com.sleepycat.je.Environment;
-import com.sleepycat.je.LockMode;
-import com.sleepycat.je.OperationStatus;
-import com.sleepycat.je.Transaction;
+import com.sleepycat.je.*;
 import com.sleepycat.je.Transaction.State;
 import com.snv.exceptions.BudgetDataBaseException;
 import com.snv.exceptions.KeyAlreadyExistException;
 import com.snv.exceptions.NoDataFoundException;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
 public abstract class DataBaseFactory<T> {
 
-    private static final Log         LOG      = LogFactory.getLog(DataBaseFactory.class);
     private final StoredClassCatalog catalog  = CatalogDataBase.getInstance().getCatalog();
     private Database                 db;
     private final DatabaseConfig     dbConfig = CatalogDataBase.getInstance().getDbConfig();
@@ -63,7 +53,7 @@ public abstract class DataBaseFactory<T> {
         } catch (final DatabaseException e) {
             txn.abort();
             final String msg = String.format("Erreur lors de l'insertion en Base de données : %s", this.db.getDatabaseName());
-            LOG.error(msg, e);
+            log.error(msg, e);
             throw new BudgetDataBaseException(msg, e);
         } finally {
             if (txn.getState() != State.ABORTED) {
@@ -72,7 +62,7 @@ public abstract class DataBaseFactory<T> {
         }
         if (OperationStatus.KEYEXIST == status) {
             final String msg = String.format("La cle %s est déjà utilisée.", primaryKey.toString());
-            LOG.error(msg);
+            log.error(msg);
             throw new KeyAlreadyExistException(msg);
         }
         return OperationStatus.SUCCESS == status;
@@ -84,7 +74,7 @@ public abstract class DataBaseFactory<T> {
             this.db = null;
         } catch (final DatabaseException e) {
             final String msg = String.format("Erreur lors de la fermeture de la Base de données : %s", this.db.getDatabaseName());
-            LOG.error(msg, e);
+            log.error(msg, e);
             throw new BudgetDataBaseException(msg, e);
         }
     }
@@ -104,7 +94,7 @@ public abstract class DataBaseFactory<T> {
         if (OperationStatus.NOTFOUND == status) {
             final String msg = String.format("Aucune données pour la clé : %s trouvé dans la base : %s", primaryKey,
                     this.db.getDatabaseName());
-            LOG.info(msg);
+            log.info(msg);
             throw new NoDataFoundException(msg);
         }
         return this.entryBinding.entryToObject(data);
@@ -140,7 +130,7 @@ public abstract class DataBaseFactory<T> {
         } catch (final RuntimeException e) {
             txn.abort();
             final String msg = String.format("Erreur lors de l'ouverture de la Base de données : %s", dbName.name());
-            LOG.error(msg, e);
+            log.error(msg, e);
             throw new BudgetDataBaseException(msg, e);
         } finally {
             if (txn.getState() != State.ABORTED) {
