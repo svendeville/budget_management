@@ -3,7 +3,7 @@ jdk:
 - oraclejdk8
 addons:
   sonarcloud:
-    organization: "svendeville-github"
+    organization: "svendeville_budget_management"
     token:
       secure: Acv7zU6YTsP4+lRf4Bi9/dJBDb0axGH4eRTgRswT7v3sUhcoxP2ozgDI5mBGbYRiZTeX0ksjEO5m2ZmJ3enu2V4/qhc9gW3myaTLXhNexNZKvQs61L+GGtIKSnP3UDvKJ5dAo8uWchzas6sydTI/z4w/0Cp2KZ4bxn1eQyTSRCzMb0UNSkTtuteMF+X0lz6Z/UI6bBrKoVbCI8zI6x/9nXDAUHWMxK+3Fr0OOQvD7iU/LCjXXev5D9EBGPrHIVk+4+RyzxWLSV9qFuXXfH+TTf7e/Z7uII1zHw5zq8n3mOL/uDNnz85dD3/8AXvBee2Ngut5BhCtbbHaXfBPasa2nerCpTZWnTGtOx0XSd5RcG1Papm/ccuz91XUuVW8Qv0baraCj2tPf7FJd32Wfayl/0J+wts+n9BO/obD1U313pSannvKDlcUcnktVtuya2fNG0rWC+DGp0leDXZHl54Iiik8G+8IHVSqWDbgKc3FgRXzm8REJSMOmCwIWSIhoKXrh2Ra8Dh3rMXudo/GSDwKxrUYbGpIpLvMV0gqpe7eHdS42DQNDu7k6eQCZYRBwON0wIqu4pOWC4NNlZa88ahAsJsV3XLGk325JZLpP3GibKdOyGJg5Lx7NM5pCatdd3gAVGx8e6NLXtoqiBsWqvy4dNi77m0NGOPxVaKClGpaOHY=
 
