@@ -7,4 +7,8 @@ env:
   global:
     - secure: JzlECg++8jgKIeWSBwu/M7plIIxnshc5VG4U+C7q6o5yrNbehGcWpwUwoD7pmG9iY5njqWEYqx6ImB+8ZBT5GucHhYDeAfJtp2gE2f52NjFNMz4FoPfe3Q0X55oy41WtVcj5Yyy7G2CPGx0TlYVY0vnbwPvtsQEktr1SChrtTZgl2FEqMKsmRY131SJjVRRoHtKRzK+aHU3b8SpjralAZ3y/ZH3RuYxSrTZd+APd4X8fUId55JHOKGZrUb452onITVplHTD2YFs1hM2CLD2eN+Dzj4F0L6wrdntVqj4XKD7oXH1d8VsMtixHa98Bd1o4QQvr6x38A0N3AajhBs/LD0lQQVj6f+tHhhyMB6D2O6sfvDgiyCLrZMTK1aRLOqa5ojvcNIr1VQ9e3lj/ZYJRMSXBDKC78QdA4sbyb9buSP0XNYoeOKCIYIKDqvGrBYUAfNoGGwG5zy2ZnX8vhRoS+W8JCxD3S7eHjdS7t4Pgvnr3vM+O4vYFW4uyA7f0XptCkExLvhNGamrAdqNK9SkOjVR30baNr4Fa9EbFyP+RMarN0Kn8/q6ysK6mwC0mJsq67fIc1kmixnBWA4mdzOY/e/h3gGUdYdVxnGw08WoDaCrc8mGn33+O+S8o7C23mYIzpKU5OhKdYKC/SrhMUACJElpkmD6rkp9xaR0HLrwQ1Q0=
 script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.login=$SONAR_TOKEN
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar \
+    -Dsonar.projectKey=svendeville_budget_management \
+    -Dsonar.organization=svendeville-github \
+    -Dsonar.host.url=https://sonarcloud.io \
+    -Dsonar.login=9d2c6f778e8ddfddb47f4b2541715c995483ebc4
