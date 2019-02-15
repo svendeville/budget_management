@@ -22,12 +22,13 @@ import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.FXMLView;
 import de.felixroske.jfxsupport.GUIState;
 import javafx.stage.WindowEvent;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
 
 @FXMLView(bundle = "i18n.main.main")
+@Slf4j
 public class MainView extends AbstractFxmlView {
 
     @Autowired
@@ -35,12 +36,7 @@ public class MainView extends AbstractFxmlView {
 
     @PostConstruct
     public void init() {
-        GUIState.getStage().addEventHandler(WindowEvent.WINDOW_SHOWN, event -> {
-            try {
-                mainApplication.showIdentification();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        log.info("event listener sur main");
+        GUIState.getStage().addEventHandler(WindowEvent.WINDOW_SHOWN, event -> mainApplication.showIdentification());
     }
 }

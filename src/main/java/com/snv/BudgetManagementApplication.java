@@ -19,22 +19,22 @@ package com.snv;
 
 import com.snv.stage.Application;
 import com.snv.stage.ApplicationEvent;
+import com.snv.stage.node.ApplicationNode;
 import com.snv.view.MainView;
 import com.snv.view.Splash;
+import com.snv.view.auth.AuthenticationView;
 import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 
-import javax.annotation.PostConstruct;
-import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -42,13 +42,21 @@ import java.util.ResourceBundle;
  * @author Sylvain
  */
 @SpringBootApplication
+@Slf4j
 public class BudgetManagementApplication extends AbstractJavaFxApplicationSupport {
+
+    private static String threadName = "FX application thread";
 
     private ResourceBundle bundle = ResourceBundle.getBundle("i18n.main.main");
 
     private static final Application application = new Application();
 
-    public static void main(final String[] args) throws Exception {
+    private boolean identificationMustShow = true;
+
+    @Autowired
+    private ApplicationNode node;
+
+    public static void main(final String[] args) {
         launch(BudgetManagementApplication.class, MainView.class, new Splash(), args);
     }
 
@@ -58,6 +66,7 @@ public class BudgetManagementApplication extends AbstractJavaFxApplicationSuppor
 
     @Bean("mainApplication")
     public BudgetManagementApplication mainApplication() {
+        log.info("Configuration de main application");
         return this;
     }
 
@@ -91,26 +100,17 @@ public class BudgetManagementApplication extends AbstractJavaFxApplicationSuppor
         }
     }
 
-    @PostConstruct
+    @EventListener(ContextRefreshedEvent.class)
     public void setEventListener() {
-        application.addEventHandler(ApplicationEvent.APPLICATION_EXIT, event -> {
-            BudgetManagementApplication.this.confirmExitApplication();
+        this.node.addEventHandler(ApplicationEvent.APPLICATION_EXIT, event -> {
+            if (!event.isConsumed()) {
+                this.confirmExitApplication();
+            }
+            event.consume();
         });
     }
 
-    public void showIdentification() throws IOException {
-        FXMLLoader fXMLLoader = new FXMLLoader();
-        fXMLLoader.setResources(ResourceBundle.getBundle("i18n/auth/authentication"));
-        fXMLLoader.setLocation(getClass().getResource("/com/snv/view/auth/authentication.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(fXMLLoader.load());
-        stage.setScene(scene);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle(fXMLLoader.getResources().getString("title"));
-        stage.show();
-
-        stage.setOnCloseRequest((WindowEvent event1) -> {
-            this.confirmExitApplication();
-        });
+    public void showIdentification() {
+        BudgetManagementApplication.showView(AuthenticationView.class, Modality.APPLICATION_MODAL);
     }
 }

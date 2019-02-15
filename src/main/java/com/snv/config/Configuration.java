@@ -15,32 +15,19 @@
  * along with Budget Management. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.snv.controllers;
+package com.snv.config;
 
-
-import com.snv.stage.ApplicationEvent;
 import com.snv.stage.node.ApplicationNode;
-import de.felixroske.jfxsupport.FXMLController;
-import javafx.event.ActionEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-
-@FXMLController
 @Slf4j
-public class MainController {
+@Component
+public class Configuration {
 
-    @Autowired
-    private ApplicationNode node;
+    private final ApplicationNode applicationNode = new ApplicationNode();
 
-    public void onExitApplication(ActionEvent actionEvent) {
-        log.debug("User choice exit menu item, system while exit !");
-        this.node.fireEvent(ApplicationEvent.exitApplicationEvent(actionEvent.getTarget()));
+    public ApplicationNode getApplicationNode() {
+        return this.applicationNode;
     }
-
-    public void onLanguageChange(ActionEvent actionEvent) {
-        //this.mainApplication.changeLanguage(((MenuItem) actionEvent.getTarget()).getId());
-    }
-
-//    public void onApplicationStarted()
 }
